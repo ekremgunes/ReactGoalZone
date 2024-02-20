@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialUserState = {
-  strTeam:"" //team name
+  strTeam:"" //team name,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState: initialUserState,
   reducers: {
-    select(state,action) {
-      state.strTeam = action.payload.strTeam;
+    updateUserTeam(state,action) {
+      state.strTeam = action.payload.strTeam; //local storage update
+      localStorage.setItem("strTeam",action.payload.strTeam);
     }
   },
 });

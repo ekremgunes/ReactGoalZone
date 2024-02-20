@@ -3,13 +3,13 @@ import React from 'react'
 const Footer = () => {
   return (
 
-    <footer class="footer-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="widget mb-3">
+    <footer className="footer-section">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-3">
+            <div className="widget mb-3">
               <h3>News</h3>
-              <ul class="list-unstyled links">
+              <ul className="list-unstyled links">
                 <li><a href="#">All</a></li>
                 <li><a href="#">Club News</a></li>
                 <li><a href="#">Media Center</a></li>
@@ -18,10 +18,10 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div class="col-lg-3">
-            <div class="widget mb-3">
+          <div className="col-lg-3">
+            <div className="widget mb-3">
               <h3>Tickets</h3>
-              <ul class="list-unstyled links">
+              <ul className="list-unstyled links">
                 <li><a href="#">Online Ticket</a></li>
                 <li><a href="#">Payment and Prices</a></li>
                 <li><a href="#">Contact &amp; Booking</a></li>
@@ -30,10 +30,10 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div class="col-lg-3">
-            <div class="widget mb-3">
+          <div className="col-lg-3">
+            <div className="widget mb-3">
               <h3>Matches</h3>
-              <ul class="list-unstyled links">
+              <ul className="list-unstyled links">
                 <li><a href="#">Standings</a></li>
                 <li><a href="#">World Cup</a></li>
                 <li><a href="#">La Lega</a></li>
@@ -43,10 +43,10 @@ const Footer = () => {
             </div>
           </div>
 
-          <div class="col-lg-3">
-            <div class="widget mb-3">
+          <div className="col-lg-3">
+            <div className="widget mb-3">
               <h3>Social</h3>
-              <ul class="list-unstyled links">
+              <ul className="list-unstyled links">
                 <li><a href="#">Twitter</a></li>
                 <li><a href="#">Facebook</a></li>
                 <li><a href="#">Instagram</a></li>
@@ -57,15 +57,15 @@ const Footer = () => {
 
         </div>
 
-        <div class="row text-center">
-          <div class="col-md-12">
-            <div class=" pt-5">
+        <div className="row text-center">
+          <div className="col-md-12">
+            <div className=" pt-5">
               <p>
                  Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. 
                 Copyright &copy;
                 <script>
                   document.write(new Date().getFullYear());
-                </script> All rights reserved | This template is made with <i class="icon-heart"
+                </script> All rights reserved | This template is made with <i className="icon-heart"
                   aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                  Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. 
               </p>

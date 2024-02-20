@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+
+}
+
+
+.btn {
+  display: inline-block;
+  color: #ffffff;
+  padding: 32px;
+  position: relative;
+  letter-spacing: 1px;
+}
+
+.btn__circle,
+.btn__text,
+.btn__white-circle {
+  position: absolute;
+}
+.btn__text:hover,
+.btn__text:active,
+.btn__text:visited
+{
+  color: white !important;
+}
+
+.btn__circle {
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 100%;
+  width: 100%;
+  box-shadow: 0 0 1px 1px #fff;
+  transition: 0.3s linear;
+}
+
+.btn__white-circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  background: #ffffff;
+  display: flex;
+  transition: 0.3s ease-in-out;
+}
+
+.btn__white-circle svg {
+  width: 24px;
+  height: 24px;
+  margin: auto;
+}
+
+.btn__text {
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  z-index: 2;
+  padding: 24px 8px;
+  transition: 0.3s linear;
+}
+
+.btn:hover .btn__circle {
+  transform: scale(0);
+}
+
+.btn:hover .btn__white-circle {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn:hover .btn__text {
+  transform: translate(40px, -50%);
+}
+
+.content {
+  background: black;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+#teams {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.team {
+  cursor: pointer;
+  transition: .6s;
+}
+
+.team:hover {
+
+  border-radius: 0px !important;
+}
+
+
+.teamsForSelect {
+  padding: 2rem 1rem;
+  background-color: #000000;
+}
+
+.teamsForSelect div.widget-next-match {
+  background-color: #141414;
+  height: 208px;
+  width: 246px;
+  border-radius: 30px;
+}
+
+.widget-vs h3 {
+  margin-top: 18px;
+}
+
+#saveBtn{
+  width: 100%;
+  /* display: flex; */
+  justify-content: center;
+  position: fixed;
+  display: none;
+  top: 90vh;
+}
+.selected{
+  background-color: #1bd527e8 !important;
+
+}
+#saveBtnInner{
+  padding: .5rem 3rem;
+  background-color: #1bd527e8;
+  color: white;
+  font-weight: 900;
+  border-radius: 30px;
+  box-shadow: 1px 1px 3px #1bd527e8;
+  cursor: pointer;
+  font-size: 18px;
+  transition: .4s;
+}
+#saveBtnInner:hover{
+  box-shadow: 1px 1px 6px #1add27;
+  padding: .5rem 3.3rem;
+
+}
