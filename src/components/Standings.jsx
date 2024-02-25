@@ -4,19 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 const Standings = (props) => {
     const [standingsTable, setStandings] = useState([]);
 
-    var currentDate = new Date();  // Şu anki tarih
-    var currentYear = currentDate.getFullYear();  // Yıl bilgisi
-    var currentMonth = currentDate.getMonth();  // Ay bilgisi
-
-    var season = "";
-
-    if (currentMonth >= 5) {  // Haziran (indeksi 5) ve sonrası
-        // Eğer tarih 30 Haziran'dan sonra ise aktif yılın ve bir sonraki yılın kombinasyonunu al
-        season = currentYear + "-" + (currentYear + 1);
-    } else {
-        // Eğer tarih 30 Haziran öncesinde ise aktif yılın ve bir önceki yılın kombinasyonunu al
-        season = (currentYear - 1) + "-" + currentYear;
-    }
+    var currentDate = new Date();  
+    var currentYear = currentDate.getFullYear();
+    var season = (currentDate.getMonth() >= 5) ? `${currentYear}-${currentYear + 1}` : `${currentYear - 1}-${currentYear}`;
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -52,7 +43,7 @@ const Standings = (props) => {
                         
                         standingsTable.map((team) => (
                                 
-                            <tr key={team.idTeam} className={team.strTeam == props.teamName ? "selectedTeam" : ""}>
+                            <tr key={team.idTeam} className={team.idTeam == props.idTeam ? "selectedTeam" : ""}>
                                 <td>{team.intRank}</td>
                                 <td><strong className="text-white">{team.strTeam}</strong></td>
                                 <td>{team.intWin}</td>

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 
 const TeamsPage = () => {
-  const { strTeam } = useParams();
+  const { idTeam } = useParams();
   //url useparam ile strteam alınıp tek takım gösterilebilir
 
 

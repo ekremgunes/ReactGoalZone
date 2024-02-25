@@ -1613,3 +1613,7 @@ h5,
 #bg-img-overlay {
   background-image: url('../images/bg_3.jpg');
 }
+
+.selectedTeam{
+  background-color: black;
+}

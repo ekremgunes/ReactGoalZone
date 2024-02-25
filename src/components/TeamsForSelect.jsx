@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const TeamsForSelect = () => {
     const [teams, setTeams] = useState([]);
-    const [teamName, setTeamName] = useState("");
+    const [idTeam, setidTeam] = useState("");
+    const [shortName, setshortName] = useState("");
     const { updateUserTeam } = userActions;
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -17,8 +18,11 @@ const TeamsForSelect = () => {
         document.body.style.overflowY = "hidden";
         const fetchData = async () => {
             try {
-                const response = await fetch('https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League');
+                const response = await fetch('/api/competitions/PL/teams');
+                console.log(response)
+
                 const data = await response.json();
+                console.log(data)
                 setTeams(data.teams);
             } catch (error) {
                 console.error('Veri getirme hatası:', error);
@@ -30,8 +34,8 @@ const TeamsForSelect = () => {
         fetchData();
     }, []);
 
-    const updateUserTeams = (strTeam, elementId) => {
-        var teamDiv = document.getElementById(elementId)
+    const updateUserTeams = (idTeam, shortName) => {
+        var teamDiv = document.getElementById(idTeam)
 
         var selectedTeams = document.getElementsByClassName("selected")
         if (selectedTeams.length > 0) {
@@ -40,7 +44,9 @@ const TeamsForSelect = () => {
             });
         }
 
-        setTeamName(strTeam)
+        setidTeam(idTeam)
+        setshortName(shortName)
+
         teamDiv.classList.add("selected")
         var btn = document.getElementById("saveBtn")
         btn.style.display = "flex"
@@ -48,10 +54,10 @@ const TeamsForSelect = () => {
     }
 
     const updateUserTeamHandler = () => {
-        if (!teamName) {
+        if (!idTeam) {
             return alert("Bir takım seçiniz")
         }
-        dispatch(updateUserTeam({ strTeam: teamName }))
+        dispatch(updateUserTeam({ idTeam: idTeam, shortName: shortName }))
         navigate("/")
     }
 
@@ -99,14 +105,14 @@ const TeamsForSelect = () => {
             <div className='teamsForSelect '>
                 <div className='row pt-3' id='teams'>
                     {teams.sort((a, b) => a.intFormedYear - b.intFormedYear).map((team) => (
-                        <div className="widget-next-match team " id={"team" + team.idTeam} onClick={() => updateUserTeams(team.strTeam, "team" + team.idTeam)} key={team.idTeam}>
+                        <div className="widget-next-match team " id={team.idTeam} onClick={() => updateUserTeams(team.idTeam, team.shortName)} key={team.idTeam}>
 
                             <div className="widget-body mb-3">
                                 <div className="widget-vs">
                                     <div className="d-flex align-items-center justify-content-around justify-content-between w-100">
                                         <div className="team-1 text-center">
-                                            <img src={team.strTeamBadge} alt="Image" />
-                                            <h3>{team.strTeam}</h3>
+                                            <img src={team.crest} alt="Image" />
+                                            <h3>{team.shortName}</h3>
                                         </div>
 
 
