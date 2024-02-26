@@ -1237,7 +1237,8 @@ h5,
 }
 
 .widget-vs img {
-  max-width: 120px;
+  width: 120px;
+  height: 122px;
 }
 
 .widget-vs h3 {

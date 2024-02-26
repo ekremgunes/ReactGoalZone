@@ -8,24 +8,23 @@ import { userActions } from "../store/user";
 
 
 const HomePage = () => {
-  const idTeam = useSelector((state) => state.user.idTeam);
-  const idTeam_LS = localStorage.getItem("idTeam");
-  const strTeam_LS = localStorage.getItem("strTeam");
+  const id = useSelector((state) => state.user.id);
+  const id_LS = localStorage.getItem("id");
+  const shortName_LS = localStorage.getItem("shortName");
   const { updateUserTeam } = userActions;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (idTeam_LS == null) {
+    if (id_LS == null) {
       navigate("/starter");
     } else {
-      if (!idTeam) {
-        dispatch(updateUserTeam({ idTeam: idTeam_LS , strTeam:strTeam_LS}))
+      if (!id) {
+        dispatch(updateUserTeam({ id: id_LS , shortName:shortName_LS}))
       }
     }
 
   }, []);
-
   return (
     <>
 
@@ -92,7 +91,7 @@ const HomePage = () => {
               </div>
             </div>
             <div className="col-lg-6">
-              <Standings idTeam={idTeam}/>
+              <Standings id={id}/>
             </div>
           </div>
         </div>

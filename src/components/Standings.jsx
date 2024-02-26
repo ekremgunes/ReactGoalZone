@@ -4,17 +4,14 @@ import { useCallback, useEffect, useState } from "react";
 const Standings = (props) => {
     const [standingsTable, setStandings] = useState([]);
 
-    var currentDate = new Date();  
-    var currentYear = currentDate.getFullYear();
-    var season = (currentDate.getMonth() >= 5) ? `${currentYear}-${currentYear + 1}` : `${currentYear - 1}-${currentYear}`;
-    
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4328&s=' + season); // API endpoint'inizi buraya ekleyin
+                const response = await fetch('/api/competitions/PL/standings');
                 const data = await response.json();
-                setStandings(data.table);
+                setStandings(data.standings[0].table);
+                console.log(data.standings[0].table);
             } catch (error) {
                 console.error('Veri getirme hatası:', error);
             }
@@ -35,21 +32,23 @@ const Standings = (props) => {
                         <th>W</th>
                         <th>D</th>
                         <th>L</th>
+                        <th>GD</th>
                         <th>PTS</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         
-                        standingsTable.map((team) => (
+                        standingsTable.map((row) => (
                                 
-                            <tr key={team.idTeam} className={team.idTeam == props.idTeam ? "selectedTeam" : ""}>
-                                <td>{team.intRank}</td>
-                                <td><strong className="text-white">{team.strTeam}</strong></td>
-                                <td>{team.intWin}</td>
-                                <td>{team.intDraw}</td>
-                                <td>{team.intLoss}</td>
-                                <td>{team.intPoints}</td>
+                            <tr key={row.team.id} className={row.team.id == props.id ? "selectedTeam" : ""}>
+                                <td>{row.position}</td>
+                                <td><strong className="text-white">{row.team.shortName}</strong></td>
+                                <td>{row.won}</td>
+                                <td>{row.draw}</td>
+                                <td>{row.lost}</td>
+                                <td>{row.goalDifference}</td>
+                                <td>{row.points}</td>
                             </tr>
 
                         ))

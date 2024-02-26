@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const TeamsForSelect = () => {
     const [teams, setTeams] = useState([]);
-    const [idTeam, setidTeam] = useState("");
+    const [id, setid] = useState("");
     const [shortName, setshortName] = useState("");
     const { updateUserTeam } = userActions;
     const dispatch = useDispatch();
@@ -34,8 +34,8 @@ const TeamsForSelect = () => {
         fetchData();
     }, []);
 
-    const updateUserTeams = (idTeam, shortName) => {
-        var teamDiv = document.getElementById(idTeam)
+    const updateUserTeams = (id, shortName) => {
+        var teamDiv = document.getElementById(id)
 
         var selectedTeams = document.getElementsByClassName("selected")
         if (selectedTeams.length > 0) {
@@ -44,7 +44,7 @@ const TeamsForSelect = () => {
             });
         }
 
-        setidTeam(idTeam)
+        setid(id)
         setshortName(shortName)
 
         teamDiv.classList.add("selected")
@@ -54,10 +54,10 @@ const TeamsForSelect = () => {
     }
 
     const updateUserTeamHandler = () => {
-        if (!idTeam) {
+        if (!id) {
             return alert("Bir takım seçiniz")
         }
-        dispatch(updateUserTeam({ idTeam: idTeam, shortName: shortName }))
+        dispatch(updateUserTeam({ id: id, shortName: shortName }))
         navigate("/")
     }
 
@@ -104,8 +104,8 @@ const TeamsForSelect = () => {
 
             <div className='teamsForSelect '>
                 <div className='row pt-3' id='teams'>
-                    {teams.sort((a, b) => a.intFormedYear - b.intFormedYear).map((team) => (
-                        <div className="widget-next-match team " id={team.idTeam} onClick={() => updateUserTeams(team.idTeam, team.shortName)} key={team.idTeam}>
+                    {teams.map((team) => (
+                        <div className="widget-next-match team " id={team.id} onClick={() => updateUserTeams(team.id, team.shortName)} key={team.id}>
 
                             <div className="widget-body mb-3">
                                 <div className="widget-vs">
