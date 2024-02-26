@@ -11,9 +11,8 @@ const Standings = (props) => {
                 const response = await fetch('/api/competitions/PL/standings');
                 const data = await response.json();
                 setStandings(data.standings[0].table);
-                console.log(data.standings[0].table);
             } catch (error) {
-                console.error('Veri getirme hatası:', error);
+                console.error( error);
             }
         };
 

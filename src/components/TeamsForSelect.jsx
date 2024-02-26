@@ -19,10 +19,8 @@ const TeamsForSelect = () => {
         const fetchData = async () => {
             try {
                 const response = await fetch('/api/competitions/PL/teams');
-                console.log(response)
-
                 const data = await response.json();
-                console.log(data)
+                
                 setTeams(data.teams);
             } catch (error) {
                 console.error('Veri getirme hatası:', error);

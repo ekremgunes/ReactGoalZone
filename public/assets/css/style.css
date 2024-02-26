@@ -1229,7 +1229,7 @@ h5,
 .widget-next-match#standingsTable {
   overflow-y: scroll !important;
   overflow-x: hidden;
-  height: 500px !important;
+  height: 425px !important;
 }
 
 .widget-vs {

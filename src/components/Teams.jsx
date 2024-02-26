@@ -9,7 +9,7 @@ const TeamsForSelect = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League');
+                const response = await fetch('/api/competitions/PL/teams');
                 const data = await response.json();
                 setTeams(data.teams);
             } catch (error) {
@@ -31,7 +31,7 @@ const TeamsForSelect = () => {
 
             <div className='teamsForSelect '>
                 <div className='row pt-3' id='teams'>
-                    {teams.sort((a, b) => a.intFormedYear - b.intFormedYear).map((team) => (
+                    {teams.map((team) => (
                         <div key={team.idTeam} className="">
                             <div className="widget-next-match ">
 
@@ -39,8 +39,8 @@ const TeamsForSelect = () => {
                                     <div className="widget-vs">
                                         <div className="d-flex align-items-center justify-content-around justify-content-between w-100">
                                             <div className="team-1 text-center">
-                                                <img src={team.strTeamBadge} alt="Image" />
-                                                <h3>{team.strTeam}</h3>
+                                                <img src={team.crest} alt="Image" />
+                                                <h3>{team.shortName}</h3>
                                             </div>
 
 
