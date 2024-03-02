@@ -37,7 +37,7 @@ const LastGame = () => {
       try {
         const response = await fetch(`/api/teams/${id}/matches?status=IN_PLAY,PAUSED,FINISHED&limit=1`)
         const data = await response.json()
-        console.log(data)
+        
         if (!data.matches) {
           setLoading(true)
           return
@@ -65,14 +65,20 @@ const LastGame = () => {
 
     fetchData();
 
-    // if (lastGame.status == "IN_PLAY") {
-    //   var fetchInterval = setInterval(() => {
-    //     fetchData();
-    //   }, 20000);
+    if (lastGame.status == "IN_PLAY") {
+      var fetchInterval = setInterval(() => {
+        fetchData();
+      }, 30000);
 
-    //   return () => { clearInterval(fetchInterval) }
+      return () => { clearInterval(fetchInterval) }
+    }
+    else if (lastGame.status == "PAUSED") {
+      var fetchInterval = setInterval(() => {
+        fetchData();
+      }, 90000);
 
-    // }
+      return () => { clearInterval(fetchInterval) }
+    }
   }, [id])
 
 

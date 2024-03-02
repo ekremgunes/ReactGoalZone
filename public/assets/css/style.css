@@ -3,8 +3,26 @@ body {
   line-height: 1.7;
   color: gray;
   font-weight: 300;
-  background-color: #222831;
+  background-color: var(--PL1DARK) !important;
   font-size: 16px;
+}
+
+:root{
+  --PL1DARK:#220125;
+  --PL1:#400146;
+  --PL2:#ff015b;
+  --PL3:#04f0fe;
+  --PL4:#00ff87;
+
+  --UCL1:#010166;
+  --UCL1DARK:#05113a;
+  --UCL2:#0311f9;
+  --UCL3:#d61af0;
+
+  --UEL1:#ff6b02;
+  --UEL2:#1e0b0d;
+
+  
 }
 
 ::-moz-selection {
@@ -176,7 +194,7 @@ h5,
 
 .form-control:active,
 .form-control:focus {
-  border-color: #ee1e46;
+  border-color: var(--PL2);
   background: none;
 }
 
@@ -966,7 +984,7 @@ h5,
 }
 
 .team-vs {
-  background-color: #0d0f13;
+  background-color: var(--PL3);
   overflow: hidden;
   border-radius: 10px;
   margin-top: -90px;
@@ -1224,12 +1242,14 @@ h5,
 
 .widget-next-match {
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+
 }
 
 .widget-next-match#standingsTable {
   overflow-y: scroll !important;
   overflow-x: hidden;
-  height: 425px !important;
+  height: 445px !important;
 }
 
 .widget-vs {
@@ -1332,8 +1352,8 @@ h5,
 .footer-section {
   padding: 70px 0;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
-  background: #1a1e25;
+  color: rgba(255, 255, 255, 0.703);
+  background: var(--PL1) !important;
 }
 
 .footer-section .widget h3 {
@@ -1347,7 +1367,7 @@ h5,
 }
 
 .footer-section .widget .links li a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.719);
 }
 
 .footer-section .widget .links li a:hover {
@@ -1402,11 +1422,11 @@ h5,
 }
 
 .bg-light {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: var(--PL1) !important;
 }
 
 .bg-dark {
-  background: #1a1e25 !important;
+  background: var(--PL1DARK) !important;
 }
 
 .custom-media .img {

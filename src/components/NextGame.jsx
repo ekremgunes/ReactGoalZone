@@ -15,6 +15,37 @@ const initialGameData = {
   venue: ''
 }
 
+const startCountdown = (targetDate) => {
+  const countdownElement = document.getElementById('date-countdown-next-game');
+
+  if (countdownElement) {
+    const updateCountdown = () => {
+      const currentTime = new Date().getTime();
+      const targetTime = new Date(targetDate).getTime();
+      const timeDifference = targetTime - currentTime;
+
+      if (timeDifference > 0) {
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+        countdownElement.innerHTML = `
+        <span class="countdown-block"><span class="label">${days}</span> days </span>
+        <span class="countdown-block"><span class="label">${hours}</span> hr </span>
+        <span class="countdown-block"><span class="label">${minutes}</span> min </span>
+      `;
+      } else {
+        countdownElement.innerHTML = '';
+      }
+    };
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+  }
+
+};
+
 const formatDate = (utcDate) => {
   const options = {
     weekday: 'long',
@@ -39,7 +70,7 @@ const NextGame = () => {
         setLoading(true)
         return
       }
-      setNextGame((prev)=>({
+      setNextGame((prev) => ({
         ...prev,
         date: data.matches[0].utcDate,
         homeTeamId: data.matches[0].homeTeam.id,
@@ -80,11 +111,12 @@ const NextGame = () => {
   };
 
   useEffect(() => {
-    fetchData()    
+    fetchData()
   }, [id])
 
   useEffect(() => {
     fetchHomeTeam()
+    startCountdown(nextGame.date)
   }, [nextGame.homeTeamId])
 
   if (loading) {
@@ -123,7 +155,7 @@ const NextGame = () => {
           <strong className="text-primary">{nextGame.venue}</strong>
         </p>
 
-        <div id="date-countdown2" className="pb-1"></div>
+        <div id="date-countdown-next-game" className="pb-1"></div>
       </div>
     </div>
 
