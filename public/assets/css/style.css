@@ -1655,7 +1655,10 @@ h5,
 .selectedTeam {
   background-color: rgba(9, 0, 18, 0.927);
 }
-
+.activelink{
+  border-bottom: 2px solid whitesmoke;
+  
+}
 .logoPage {
   height: 5rem;
 }

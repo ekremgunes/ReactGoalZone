@@ -27,6 +27,28 @@ const LastGame = () => {
   var fetchInterval = null;
 
   useEffect(() => {
+    if (
+      lastGame.status == "IN_PLAY" &&
+      lastGame.homeScore + lastGame.awayScore > 0
+    ) {
+      setScoreContent("⚽");
+
+      setTimeout(() => {
+        setGoalAnimation(true);
+
+        setTimeout(() => {
+          setScoreContent(`${lastGame.homeScore} - ${lastGame.awayScore}`);
+        }, 1050); // Adjust the delay according to your needs
+      }, 1000);
+
+      setTimeout(() => {
+        setGoalAnimation(false);
+      }, 4000);
+    }
+  }, [lastGame.awayScore, lastGame.homeScore]);
+
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -51,8 +73,7 @@ const LastGame = () => {
           awayScoreFH: data.matches[0].score.halfTime.away,
           duration: data.matches[0].score.duration,
         });
-        setScoreContent(`${lastGame.homeScore} - ${lastGame.awayScore}`);
-
+        setScoreContent(`${data.matches[0].score.fullTime.home} - ${data.matches[0].score.fullTime.away}`); // Move this line here
         setLoading(false);
       } catch (error) {
         console.error("Veri getirme hatası:", error);
@@ -97,26 +118,6 @@ const LastGame = () => {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (
-      lastGame.status == "IN_PLAY" &&
-      lastGame.homeScore + lastGame.awayScore > 0
-    ) {
-      setScoreContent("⚽");
-
-      setTimeout(() => {
-        setGoalAnimation(true);
-
-        setTimeout(() => {
-          setScoreContent(`${lastGame.homeScore} - ${lastGame.awayScore}`);
-        }, 1050); // Adjust the delay according to your needs
-      }, 1000);
-
-      setTimeout(() => {
-        setGoalAnimation(false);
-      }, 4000);
-    }
-  }, [lastGame.awayScore, lastGame.homeScore]);
 
   if (loading) {
     return <></>;
