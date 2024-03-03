@@ -9,10 +9,8 @@ const Loading = () => {
                 <div className="loader" id="loader2"></div>
                 <div className="loader" id="loader3"></div>
                 <div className="loader" id="loader4"></div>
-
                 <span id="text">LOADING...</span><br>
                 </br>
-
             </center>
         </React.Fragment>
     )

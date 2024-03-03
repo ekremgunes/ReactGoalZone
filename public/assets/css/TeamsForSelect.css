@@ -1,5 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap");
 
+
+:root{
+  --PL1DARK:#220125;
+  --PL1:#400146;
+  --PL2:#ff015d;
+  --PL3:#04f0fe;
+  --PL4:#00ff87;
+
+  --UCL1:#010166;
+  --UCL1DARK:#05113a;
+  --UCL2:#0311f9;
+  --UCL3:#d61af0;
+
+  --UEL1:#ff6b02;
+  --UEL2:#1e0b0d;
+
+  
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +43,10 @@ body {
   font-family: "Nunito", sans-serif;
   font-size: 14px;
   line-height: 1.5;
-
+  background-color: var(--PL1DARK) !important;
+}
+html{
+  background-color: var(--PL1DARK) !important;
 }
 
 

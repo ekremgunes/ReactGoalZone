@@ -1,46 +1,42 @@
-import React from 'react'
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "../helpers/helpers.js";
 
 const initialGameData = {
-  status: '',
-  homeTeamImage: '',
-  awayTeamImage: '',
-  homeTeam: '',
-  awayTeam: '',
+  status: "",
+  homeTeamImage: "",
+  awayTeamImage: "",
+  homeTeam: "",
+  awayTeam: "",
   homeScore: 0,
   homeScoreFH: 0,
   awayScore: 0,
   awayScoreFH: 0,
-  minute: 0,
-  duration: ''
-};
-
-const getMatchMin = (date) => {
-  const matchDate = new Date(date)
-  const now = new Date()
-  const diffInMs = now - matchDate
-  const diffInMin = Math.floor(diffInMs / 60000)
-  return diffInMin + 1
+  duration: "",
 };
 
 const LastGame = () => {
-  const id = useSelector((state) => state.user.id)
-  const [lastGame, setLastGame] = useState(initialGameData)
-  const [loading, setLoading] = useState(true)
+  const id = useSelector((state) => state.user.id);
+  const competition = useSelector((state) => state.user.competition);
+  const [lastGame, setLastGame] = useState(initialGameData);
+  const [loading, setLoading] = useState(true);
 
-
+  const [classNameScoreBg, setclassNameScoreBg] = useState("");
+  const [scoreContent, setScoreContent] = useState("");
+  const [goalAnimation, setGoalAnimation] = useState(false);
+  var fetchInterval = null;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/teams/${id}/matches?status=IN_PLAY,PAUSED,FINISHED&limit=1`)
-        const data = await response.json()
-        
+        const response = await fetch(
+          `/api/teams/${id}/matches?status=IN_PLAY,PAUSED,FINISHED&limit=1`
+        );
+        const data = await response.json();
+
         if (!data.matches) {
-          setLoading(true)
-          return
+          setLoading(true);
+          return;
         }
 
         setLastGame({
@@ -54,76 +50,134 @@ const LastGame = () => {
           awayScore: data.matches[0].score.fullTime.away,
           awayScoreFH: data.matches[0].score.halfTime.away,
           duration: data.matches[0].score.duration,
-          minute: getMatchMin(data.matches[0].utcDate)
         });
-        setLoading(false)
+        setScoreContent(`${lastGame.homeScore} - ${lastGame.awayScore}`);
+
+        setLoading(false);
       } catch (error) {
-        console.error('Veri getirme hatası:', error)
-        setLoading(true)
+        console.error("Veri getirme hatası:", error);
+        setLoading(true);
       }
     };
 
     fetchData();
 
     if (lastGame.status == "IN_PLAY") {
-      var fetchInterval = setInterval(() => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      fetchInterval = setInterval(() => {
         fetchData();
       }, 30000);
 
-      return () => { clearInterval(fetchInterval) }
-    }
-    else if (lastGame.status == "PAUSED") {
-      var fetchInterval = setInterval(() => {
+      return () => {
+        clearInterval(fetchInterval);
+      };
+    } else if (lastGame.status == "PAUSED") {
+      fetchInterval = setInterval(() => {
         fetchData();
       }, 90000);
 
-      return () => { clearInterval(fetchInterval) }
+      return () => {
+        clearInterval(fetchInterval);
+      };
     }
-  }, [id])
 
+    if (competition && id) {
+      switch (competition) {
+        case "UCL":
+          setclassNameScoreBg("ucl_score_bg");
+          break;
+        case "UEL":
+          setclassNameScoreBg("uel_score_bg");
 
+          break;
+        default:
+          setclassNameScoreBg("pl_score_bg");
+          break;
+      }
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (
+      lastGame.status == "IN_PLAY" &&
+      lastGame.homeScore + lastGame.awayScore > 0
+    ) {
+      setScoreContent("⚽");
+
+      setTimeout(() => {
+        setGoalAnimation(true);
+
+        setTimeout(() => {
+          setScoreContent(`${lastGame.homeScore} - ${lastGame.awayScore}`);
+        }, 1050); // Adjust the delay according to your needs
+      }, 1000);
+
+      setTimeout(() => {
+        setGoalAnimation(false);
+      }, 4000);
+    }
+  }, [lastGame.awayScore, lastGame.homeScore]);
 
   if (loading) {
-    return <></>
+    return <></>;
   }
 
   return (
-
     <div className="container">
-
-
-      <div className="row">
-        <div className="col-lg-12">
-
-          <div className="d-flex team-vs">
-            <span className="score">{lastGame.homeScore} - {lastGame.awayScore}</span>
-            <span className="score" style={{ top: "8%", fontSize: "13px", letterSpacing: "2px" }}>
-              {lastGame.status != "IN_PLAY" ? lastGame.status : `${lastGame.minute}'`}
+      <div className="row d-flex justify-content-center">
+        <div className="col-lg-11">
+          <div className={`d-flex team-vs ${classNameScoreBg}`}>
+            <span
+              className={`score ${goalAnimation ? "goalAnimation" : ""}`}
+              id="gameScore"
+            >
+              {scoreContent}
             </span>
-            <span className="score" style={{ top: "16%", fontSize: "9px" }}>FH({lastGame.homeScoreFH} - {lastGame.awayScoreFH})</span>
-
+            <span
+              className="score"
+              style={{ top: "8%", fontSize: "13px", letterSpacing: "2px" }}
+            >
+              {lastGame.status != "IN_PLAY"
+                ? lastGame.status == "FINISHED"
+                  ? "FULL TIME"
+                  : lastGame.status
+                : `LIVE🔴'`}
+            </span>
+            <span className="score" style={{ top: "16%", fontSize: "9px" }}>
+              {lastGame.awayScoreFH != null && lastGame.homeScoreFH != null
+                ? `FH(${lastGame.homeScoreFH} - ${lastGame.awayScoreFH})`
+                : ""}
+            </span>
 
             <div className="team-1 w-50">
               <div className="team-details w-100 text-center">
-                <img src={lastGame.homeTeamImage} alt="Image" className="img-fluid" />
-                <h3>{lastGame.homeTeam} <span></span></h3>
-
+                <img
+                  src={lastGame.homeTeamImage}
+                  alt="Image"
+                  className="img-fluid"
+                />
+                <h3>
+                  {lastGame.homeTeam} <span></span>
+                </h3>
               </div>
             </div>
             <div className="team-2 w-50">
               <div className="team-details w-100 text-center">
-                <img src={lastGame.awayTeamImage} alt="Image" className="img-fluid" />
-                <h3>{lastGame.awayTeam} <span></span></h3>
-
+                <img
+                  src={lastGame.awayTeamImage}
+                  alt="Image"
+                  className="img-fluid"
+                />
+                <h3>
+                  {lastGame.awayTeam} <span></span>
+                </h3>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default LastGame
+export default LastGame;

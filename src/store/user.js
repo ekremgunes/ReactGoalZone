@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialUserState = {
   id:"" ,//team id,
-  shortName:""
+  shortName:"",
+  competition:"PL",
 };
 
 const userSlice = createSlice({
@@ -10,10 +11,16 @@ const userSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     updateUserTeam(state,action) {
-      state.id = action.payload.id; //local storage update
-      state.shortName = action.payload.shortName; //local storage update
+      state.id = action.payload.id;
+      state.shortName = action.payload.shortName;
       localStorage.setItem("id",action.payload.id);
       localStorage.setItem("shortName",action.payload.shortName);
+
+      if (action.payload.competition.length < 0 ) {
+        competition = "PL"
+      }
+      state.competition = action.payload.competition;
+      localStorage.setItem("competition",action.payload.competition);
     }
   },
 });

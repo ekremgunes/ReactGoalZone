@@ -1,42 +1,70 @@
-import React from 'react'
 import Standings from "../components/Standings";
 import LastGame from "../components/LastGame";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store/user";
 import NextGame from '../components/NextGame';
+import Loading from '../components/layout/Loading';
 
 
 const HomePage = () => {
   const id = useSelector((state) => state.user.id);
+  const competition = useSelector((state) => state.user.competition);
   const id_LS = localStorage.getItem("id");
   const shortName_LS = localStorage.getItem("shortName");
+  const competition_LS = localStorage.getItem("competition");
   const { updateUserTeam } = userActions;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  let classForBg = "hero overlay ";
+  let textSliderValue = "Premier"
   useEffect(() => {
     if (id_LS == null) {
       navigate("/starter");
     } else {
       if (!id) {
-        dispatch(updateUserTeam({ id: id_LS, shortName: shortName_LS }))
+        dispatch(updateUserTeam({ id: id_LS, shortName: shortName_LS, competition: competition_LS }))
       }
     }
 
+    if (competition && id) {
+      var bgSlider = document.getElementById('bg-img-overlay')
+      switch (competition) {
+        case "UCL":
+          classForBg = "ucl_bg"
+          textSliderValue = "UCL Night"
+          break;
+        case "UEL":
+          classForBg = "uel_bg"
+          textSliderValue = "UEL Night"
+
+          break;
+        default:
+          classForBg = "pl_bg"
+          textSliderValue = "Premier"
+          break;
+      }
+      bgSlider.classList.add(classForBg)
+    }
+
+
   }, [id]);
+
+  if (!id) {
+    return <Loading />
+  }
+
 
   return (
     <>
 
-      <div className="hero overlay" id='bg-img-overlay'>
+      <div className={classForBg} id='bg-img-overlay'>
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-5 ml-auto">
-              <h1 className="text-white">World Cup</h1>
+            <div className="col-lg-4 ml-auto">
+              <h1 className="text-white" >{textSliderValue}</h1>
               <p>The excitement of the 2026 World Cup is with you!</p>
-              <div id="date-countdown"></div>
               <p>
                 <a href="#" className="btn btn-primary py-3 px-4 mr-3">Book Ticket</a>
                 <a href="#" className="more light">Learn More</a>

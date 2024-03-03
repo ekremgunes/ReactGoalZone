@@ -1,22 +1,21 @@
-import React from 'react'
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "../helpers/helpers.js";
 
 const initialGameData = {
   homeTeamId: 0,
-  homeTeamImage: '',
-  awayTeamImage: '',
-  homeTeam: '',
-  awayTeam: '',
-  competition: '',
-  date: '',
+  homeTeamImage: "",
+  awayTeamImage: "",
+  homeTeam: "",
+  awayTeam: "",
+  competition: "",
+  date: "",
   matchWeek: 0,
-  venue: ''
-}
+  venue: "",
+};
 
 const startCountdown = (targetDate) => {
-  const countdownElement = document.getElementById('date-countdown-next-game');
+  const countdownElement = document.getElementById("date-countdown-next-game");
 
   if (countdownElement) {
     const updateCountdown = () => {
@@ -26,16 +25,32 @@ const startCountdown = (targetDate) => {
 
       if (timeDifference > 0) {
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const hours = Math.floor(
+          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
 
         countdownElement.innerHTML = `
-        <span class="countdown-block"><span class="label">${days}</span> days </span>
-        <span class="countdown-block"><span class="label">${hours}</span> hr </span>
-        <span class="countdown-block"><span class="label">${minutes}</span> min </span>
+        ${
+          days != 0
+            ? `<span class="countdown-block"><span class="label">${days}</span> days </span>`
+            : ""
+        }
+        ${
+          hours != 0
+            ? `<span class="countdown-block"><span class="label">${hours}</span> hr </span>`
+            : ""
+        }
+        ${
+          minutes != 0
+            ? `<span class="countdown-block"><span class="label">${minutes}</span> min </span>`
+            : ""
+        }        
       `;
       } else {
-        countdownElement.innerHTML = '';
+        countdownElement.innerHTML = "";
       }
     };
 
@@ -43,32 +58,33 @@ const startCountdown = (targetDate) => {
 
     setInterval(updateCountdown, 1000);
   }
-
 };
 
 const formatDate = (utcDate) => {
   const options = {
-    weekday: 'long',
-    month: 'numeric',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric'
+    weekday: "long",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
   };
 
-  return new Date(utcDate).toLocaleString('en-US', options);
-}
+  return new Date(utcDate).toLocaleString("en-US", options);
+};
 const NextGame = () => {
-  const id = useSelector((state) => state.user.id)
-  const [nextGame, setNextGame] = useState(initialGameData)
-  const [loading, setLoading] = useState(true)
+  const id = useSelector((state) => state.user.id);
+  const [nextGame, setNextGame] = useState(initialGameData);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`/api/teams/${id}/matches?status=SCHEDULED&limit=1`)
-      const data = await response.json()
+      const response = await fetch(
+        `/api/teams/${id}/matches?status=SCHEDULED&limit=1`
+      );
+      const data = await response.json();
       if (!data.matches) {
-        setLoading(true)
-        return
+        setLoading(true);
+        return;
       }
       setNextGame((prev) => ({
         ...prev,
@@ -81,49 +97,43 @@ const NextGame = () => {
         competition: data.matches[0].competition.name,
         matchWeek: data.matches[0].matchday,
       }));
-      setLoading(false)
-
+      setLoading(false);
     } catch (error) {
-      console.error('Veri getirme hatası:', error)
-      setLoading(true)
+      console.error("Veri getirme hatası:", error);
+      setLoading(true);
     }
   };
 
   const fetchHomeTeam = async () => {
     try {
-
       if (nextGame.homeTeamId > 0) {
-        const responseOfTeam = await fetch(`/api/teams/${nextGame.homeTeamId}`)
-        const dataOfTeam = await responseOfTeam.json()
+        const responseOfTeam = await fetch(`/api/teams/${nextGame.homeTeamId}`);
+        const dataOfTeam = await responseOfTeam.json();
 
         if (dataOfTeam) {
           setNextGame((prev) => ({
             ...prev,
-            venue: dataOfTeam.venue
+            venue: dataOfTeam.venue,
           }));
         }
-
       }
-
     } catch (error) {
-      console.error('Veri getirme hatası:', error)
+      console.error("Veri getirme hatası:", error);
     }
   };
 
   useEffect(() => {
-    fetchData()
-  }, [id])
+    fetchData();
+  }, [id]);
 
   useEffect(() => {
-    fetchHomeTeam()
-    startCountdown(nextGame.date)
-  }, [nextGame.homeTeamId])
+    fetchHomeTeam();
+    startCountdown(nextGame.date);
+  }, [nextGame.homeTeamId]);
 
   if (loading) {
-    return <></>
+    return <></>;
   }
-
-
 
   return (
     <div className="widget-next-match">
@@ -138,7 +148,9 @@ const NextGame = () => {
               <h3>{nextGame.homeTeam}</h3>
             </div>
             <div>
-              <span className="vs"><span>VS</span></span>
+              <span className="vs">
+                <span>VS</span>
+              </span>
             </div>
             <div className="team-2 text-center">
               <img src={nextGame.awayTeamImage} alt="Image" />
@@ -158,9 +170,7 @@ const NextGame = () => {
         <div id="date-countdown-next-game" className="pb-1"></div>
       </div>
     </div>
+  );
+};
 
-
-  )
-}
-
-export default NextGame
+export default NextGame;

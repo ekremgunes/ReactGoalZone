@@ -20,7 +20,7 @@ const TeamsForSelect = () => {
             try {
                 const response = await fetch('/api/competitions/PL/teams');
                 const data = await response.json();
-                
+
                 setTeams(data.teams);
             } catch (error) {
                 console.error('Veri getirme hatası:', error);
@@ -55,7 +55,7 @@ const TeamsForSelect = () => {
         if (!id) {
             return alert("Bir takım seçiniz")
         }
-        dispatch(updateUserTeam({ id: id, shortName: shortName }))
+        dispatch(updateUserTeam({ id: id, shortName: shortName, competition: "PL" }))
         navigate("/")
     }
 
