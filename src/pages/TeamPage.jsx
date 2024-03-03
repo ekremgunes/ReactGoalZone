@@ -3,16 +3,16 @@ import Teams from "../components/Teams";
 import { useParams } from 'react-router-dom';
 
 
-const TeamsPage = () => {
+const TeamPage = () => {
   const { idTeam } = useParams();
   //url useparam ile strteam alınıp tek takım gösterilebilir
 
 
   return (
     <>
-    <Teams></Teams>
+    <Team></Team>
     </>
     
   )
 }
-export default TeamsPage;
+export default TeamPage;
