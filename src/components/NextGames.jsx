@@ -10,6 +10,7 @@ const initialGameData = {
   date: "",
   matchWeek: 0,
   venue: "",
+  stage:""
 };
 
 const formatDate = (utcDate) => {
@@ -21,7 +22,7 @@ const formatDate = (utcDate) => {
     minute: "numeric",
   };
 
-  return new Date(utcDate).toLocaleString("tr-TR", options);
+  return new Date(utcDate).toLocaleString("en-US", options);
 };
 
 const NextGames = () => {
@@ -32,10 +33,11 @@ const NextGames = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `/api/teams/${id}/matches?status=SCHEDULED&limit=5`
+        `/api/teams/${id}/matches?status=SCHEDULED&limit=4`
       );
       const data = await response.json();
-      console.log("maçlar 5555555555"+data)
+      console.log("maçlar 5555555555")
+      console.log(data)
       if (!data.matches) {
         setLoading(true);
         return;
@@ -49,9 +51,9 @@ const NextGames = () => {
         awayTeam: match.awayTeam.shortName,
         competition: match.competition.name,
         matchWeek: match.matchday,
+        venue:match.venue,
+        stage:match.stage
       }));
-      console.log("********GAMES*******/n"+ games)
-
       setNextGames(games);
       setLoading(false);
     } catch (error) {
@@ -69,11 +71,11 @@ const NextGames = () => {
   }
 
   return (
-    <div className="widget-next-match">
+    <div className="widget-next-match row">
       {nextGames.map((game, index) => (
-        <div key={index} className="widget-item">
+        <div key={index} className="widget-item col-6 mb-3 col-xs-12">
           <div className="widget-title">
-            <h3>Maç Haftası {game.matchWeek}</h3>
+            <h3> {`${game.stage != "REGULAR_SEASON" ? game.stage.replace("_"," ") : `Match Week ${game.matchWeek}`}`}</h3>
           </div>
           <div className="widget-body mb-3">
             <div className="widget-vs">

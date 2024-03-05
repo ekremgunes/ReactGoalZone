@@ -1677,6 +1677,9 @@ h5,
   text-overflow: ellipsis;
   margin-top: 5px;
   margin-bottom: 0;
+  overflow: hidden;
+  height: 18px;
+  width: 140px;
 }
 
 .playerCircle .position {
