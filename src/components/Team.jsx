@@ -28,8 +28,7 @@ const Team = (props) => {
   const [coach, setCoach] = useState({ position: "Manager" });
   const [loading, setLoading] = useState(true);
   const [apiUrl, setApiUrl] = useState("");
-  const competition = useSelector((state) => state.user.competition);
-  let classForBg = "hero overlay ";
+  
 
   useEffect(() => {
     teamId == null || teamId == undefined
@@ -61,22 +60,6 @@ const Team = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (competition && id) {
-      switch (competition) {
-        case "UCL":
-          classForBg += "ucl_bg";
-          break;
-        case "UEL":
-          classForBg += "uel_bg";
-
-          break;
-        default:
-          classForBg += "pl_bg";
-          break;
-      }
-    }
-  }, [id]);
 
   useEffect(() => {
     const fetchTeamData = async () => {
@@ -142,7 +125,7 @@ const Team = (props) => {
 
   return (
     <>
-      <div className={classForBg} id="bg-img-overlay">
+      <div className="hero overlay " id="bg-img-overlay">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-2 ">

@@ -12,6 +12,7 @@ const initialGameData = {
   date: "",
   matchWeek: 0,
   venue: "",
+  stage:""
 };
 
 const startCountdown = (targetDate) => {
@@ -96,6 +97,7 @@ const NextGame = () => {
         awayTeam: data.matches[0].awayTeam.shortName,
         competition: data.matches[0].competition.name,
         matchWeek: data.matches[0].matchday,
+        stage: data.matches[0].stage,
       }));
       setLoading(false);
     } catch (error) {
@@ -138,7 +140,7 @@ const NextGame = () => {
   return (
     <div className="widget-next-match">
       <div className="widget-title">
-        <h3>Match Week {nextGame.matchWeek} </h3>
+      <h3> {`${nextGame.stage != "REGULAR_SEASON" ? nextGame.stage.replace("_"," ") : `Match Week ${nextGame.matchWeek}`}`}</h3>
       </div>
       <div className="widget-body mb-3">
         <div className="widget-vs">

@@ -2,22 +2,22 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
-  const competition = useSelector((state) => state.user.competition);
+  // const competition = useSelector((state) => state.user.competition);
 
   var imgPath = "";
-  if (competition) {
-    switch (competition) {
-      case "UCL":
-        imgPath = "ucl_logo.png";
-        break;
-      case "UEL":
-        imgPath = "uel_logo.png";
-        break;
-      default:
-        imgPath = "pl_logo.png";
-        break;
-    }
-  }
+  // if (competition) {
+  //   switch (competition) {
+  //     case "UCL":
+  //       imgPath = "ucl_logo.png";
+  //       break;
+  //     case "UEL":
+  //       imgPath = "uel_logo.png";
+  //       break;
+  //     default:
+  //       imgPath = "pl_logo.png";
+  //       break;
+  //   }
+  // }
   return (
     <>
       <div className="site-mobile-menu site-navbar-target">
@@ -35,6 +35,7 @@ const Header = () => {
             <div className="site-logo">
               <a href="/">
                 <img
+                id="logoImg"
                   className="logoPage"
                   src={`/public/assets/images/${imgPath}`}
                   alt="Logo"

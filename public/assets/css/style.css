@@ -16,7 +16,7 @@ body {
 
   --UCL1: #010166;
   --UCL1DARK: #05113a;
-  --UCL2: #0311f9;
+  --UCL2: #0a14d0;
   --UCL3: #681b71;
 
   --UEL1: #ff6b02;
@@ -1703,6 +1703,9 @@ h5,
 .competition {
   width: 170px;
 }
+.competition p{
+  width: 170px;
+}
 .competition img{
   width: 70%;
   height: auto;
@@ -1712,7 +1715,7 @@ h5,
 }
 
 .ucl_bg {
-  background-image: url('../images/UCL_BG_1.jpg') !important;
+  background-image: url('../images/UCL_BG.jpg') !important;
 }
 
 .uel_bg {

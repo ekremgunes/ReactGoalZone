@@ -17,7 +17,7 @@ const HomePage = () => {
   const { updateUserTeam } = userActions;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let classForBg = "hero overlay ";
+  
   let textSliderValue = "Premier"
   
   useEffect(() => {
@@ -30,23 +30,18 @@ const HomePage = () => {
     }
 
     if (competition && id) {
-      var bgSlider = document.getElementById('bg-img-overlay')
       switch (competition) {
         case "UCL":
-          classForBg = "ucl_bg"
           textSliderValue = "UCL Night"
           break;
         case "UEL":
-          classForBg = "uel_bg"
           textSliderValue = "UEL Night"
 
           break;
         default:
-          classForBg = "pl_bg"
           textSliderValue = "Premier"
           break;
       }
-      bgSlider.classList.add(classForBg)
     }
 
 
@@ -60,7 +55,7 @@ const HomePage = () => {
   return (
     <>
 
-      <div className={classForBg} id='bg-img-overlay'>
+      <div className="hero overlay " id='bg-img-overlay'>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-4 ml-auto">
@@ -81,10 +76,10 @@ const HomePage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              {/* <NextGame /> */}
+               <NextGame /> 
             </div>
             <div className="col-lg-6">
-              {/* <Standings id={id} /> */}
+               <Standings id={id} /> 
             </div>
           </div>
         </div>
