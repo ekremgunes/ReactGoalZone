@@ -19,6 +19,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   let classForBg = "hero overlay ";
   let textSliderValue = "Premier"
+  
   useEffect(() => {
     if (id_LS == null) {
       navigate("/starter");
@@ -80,10 +81,10 @@ const HomePage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              <NextGame />
+              {/* <NextGame /> */}
             </div>
             <div className="col-lg-6">
-              <Standings id={id} />
+              {/* <Standings id={id} /> */}
             </div>
           </div>
         </div>

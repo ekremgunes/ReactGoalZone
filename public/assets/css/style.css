@@ -299,7 +299,7 @@ h5,
   bottom: 0;
   z-index: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .bg-image>.container {
@@ -907,7 +907,7 @@ h5,
 .hero.overlay:before {
   content: "";
   position: absolute;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.61);
   top: 0;
   left: 0;
   right: 0;
@@ -999,6 +999,7 @@ h5,
   0% {
     top: 130%;
   }
+
   100% {
     top: 50%;
   }
@@ -1017,9 +1018,11 @@ h5,
   z-index: 2;
   letter-spacing: .2em;
 }
-.team-vs #gameScore{
+
+.team-vs #gameScore {
   animation-delay: 1s;
 }
+
 .goalAnimation {
   animation: goalAnimation 2s cubic-bezier(0.19, 1, 0.22, 1) 1;
 }
@@ -1652,17 +1655,55 @@ h5,
   background-image: url('../images/PL_BG.png');
 }
 
+.playerCircle {
+  display: inline-block;
+  margin: 1rem;
+  color: white !important;
+  text-align: center;
+  width: 140px;
+
+}
+
+.playerCircle img {
+  width: 100%;
+  border-radius: 50%;
+  padding: 1px;
+  background-color: #fffffff4;
+  height: 140px;
+  cursor: pointer;
+}
+
+.playerCircle p {
+  text-overflow: ellipsis;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.playerCircle .position {
+  color: rgba(229, 228, 228, 0.775);
+  font-size: small;
+}
+
+
 .selectedTeam {
   background-color: rgba(9, 0, 18, 0.927);
 }
-.activelink{
+
+.activelink {
   border-bottom: 2px solid whitesmoke;
-  
-}
-.logoPage {
-  height: 5rem;
+
 }
 
+.logoPage {
+  height: 3.3rem;
+}
+.competition {
+  width: 170px;
+}
+.competition img{
+  width: 70%;
+  height: auto;
+}
 .pl_bg {
   background-image: url('../images/PL_BG.png') !important;
 }
@@ -1686,4 +1727,77 @@ h5,
 
 .uel_score_bg {
   background-image: url('../images/pl_bg_2.png') !important;
+}
+
+
+.loading-effect-player:nth-child(1),
+.loading-effect-player:nth-child(2),
+.loading-effect-player:nth-child(3),
+.loading-effect-player:nth-child(4),
+.loading-effect-player:nth-child(5),
+.loading-effect-player:nth-child(6) {
+  animation-iteration-count: infinite;
+}
+
+.loading-effect-player:nth-child(1) {
+  animation-delay: 20ms;
+}
+
+.loading-effect-player:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.loading-effect-player:nth-child(3) {
+  animation-delay: 250ms;
+}
+
+.loading-effect-player:nth-child(4) {
+  animation-delay: 450ms;
+}
+
+.loading-effect-player:nth-child(5) {
+  animation-delay: 650ms;
+}
+
+.loading-effect-player:nth-child(6) {
+  animation-delay: 750ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.12;
+  }
+
+  20% {
+    opacity: 0.15;
+  }
+  60% {
+    opacity: 0.20;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes loadPlayers {
+  0% {
+    opacity: 0.3 !important;
+    /* Gri tonlama */
+  }
+
+  50% {
+    opacity: 0.15 !important;
+    /* Gri tonlama */
+  }
+
+  100% {
+    opacity: 0.25 !important;
+    /* Gri tonlama */
+  }
+}
+
+.loading-effect-player {
+  opacity: 0.12;
+  animation: loadPlayers 1.3s infinite, fadeIn 1.3s infinite;
+  transition: 0.7s;
 }
