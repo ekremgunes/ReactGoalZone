@@ -1,11 +1,12 @@
 import Standings from "../components/Standings";
 import LastGame from "../components/LastGame";
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store/user";
 import NextGame from '../components/NextGame';
 import Loading from '../components/layout/Loading';
+import { useCompetition } from "../context/CompetititonContext.jsx";
 
 
 const HomePage = () => {
@@ -15,10 +16,18 @@ const HomePage = () => {
   const shortName_LS = localStorage.getItem("shortName");
   const competition_LS = localStorage.getItem("competition");
   const { updateUserTeam } = userActions;
+  const { contextValues } = useCompetition();
+  const [sliderBgClass, setSliderBgClass] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
   let textSliderValue = "Premier"
+
+  
+  useEffect(() => {
+    setSliderBgClass(contextValues.sliderBgClass);
+  }, [contextValues]);
   
   useEffect(() => {
     if (id_LS == null) {
@@ -55,7 +64,7 @@ const HomePage = () => {
   return (
     <>
 
-      <div className="hero overlay " id='bg-img-overlay'>
+      <div className={`hero overlay ${sliderBgClass}`} id='bg-img-overlay'>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-4 ml-auto">
@@ -76,10 +85,10 @@ const HomePage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-               <NextGame /> 
+               {/* <NextGame />  */}
             </div>
             <div className="col-lg-6">
-               <Standings id={id} /> 
+               {/* <Standings id={id} />  */}
             </div>
           </div>
         </div>

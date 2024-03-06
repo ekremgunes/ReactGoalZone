@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "../helpers/helpers.js";
+import { useCompetition } from '../context/CompetititonContext.jsx';
 
 const initialGameData = {
   status: "",
@@ -20,12 +21,18 @@ const LastGame = () => {
   const competition = useSelector((state) => state.user.competition);
   const [lastGame, setLastGame] = useState(initialGameData);
   const [loading, setLoading] = useState(true);
-
-  const [classNameScoreBg, setclassNameScoreBg] = useState("");
   const [scoreContent, setScoreContent] = useState("");
   const [goalAnimation, setGoalAnimation] = useState(false);
+  const { contextValues } = useCompetition();
+  const [scoreBgClass, setScoreBgClass] = useState("");
+
   var fetchInterval = null;
 
+  useEffect(() => {
+    setScoreBgClass(contextValues.scoreBgClass)
+  }, [contextValues])
+
+  //goal animation
   useEffect(() => {
     if (
       lastGame.status == "IN_PLAY" &&
@@ -46,7 +53,6 @@ const LastGame = () => {
       }, 4000);
     }
   }, [lastGame.awayScore, lastGame.homeScore]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +79,9 @@ const LastGame = () => {
           awayScoreFH: data.matches[0].score.halfTime.away,
           duration: data.matches[0].score.duration,
         });
-        setScoreContent(`${data.matches[0].score.fullTime.home} - ${data.matches[0].score.fullTime.away}`); // Move this line here
+        setScoreContent(
+          `${data.matches[0].score.fullTime.home} - ${data.matches[0].score.fullTime.away}`
+        ); // Move this line here
         setLoading(false);
       } catch (error) {
         console.error("Veri getirme hatası:", error);
@@ -82,6 +90,8 @@ const LastGame = () => {
     };
 
     fetchData();
+
+    console.log("çalıştı skor :", lastGame.awayScore, lastGame.homeScore);
 
     if (lastGame.status == "IN_PLAY") {
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,28 +106,12 @@ const LastGame = () => {
       fetchInterval = setInterval(() => {
         fetchData();
       }, 90000);
-
-      return () => {
-        clearInterval(fetchInterval);
-      };
     }
-
-    if (competition && id) {
-      switch (competition) {
-        case "UCL":
-          setclassNameScoreBg("ucl_score_bg");
-          break;
-        case "UEL":
-          setclassNameScoreBg("uel_score_bg");
-
-          break;
-        default:
-          setclassNameScoreBg("pl_score_bg");
-          break;
-      }
-    }
-  }, [id]);
-
+    
+    return () => {
+      clearInterval(fetchInterval);
+    };
+  }, [id]); 
 
   if (loading) {
     return <></>;
@@ -127,7 +121,7 @@ const LastGame = () => {
     <div className="container">
       <div className="row d-flex justify-content-center">
         <div className="col-lg-11">
-          <div className={`d-flex team-vs ${classNameScoreBg}`}>
+          <div className={`d-flex team-vs ${scoreBgClass}`}>
             <span
               className={`score ${goalAnimation ? "goalAnimation" : ""}`}
               id="gameScore"

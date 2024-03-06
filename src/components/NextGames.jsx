@@ -36,8 +36,6 @@ const NextGames = () => {
         `/api/teams/${id}/matches?status=SCHEDULED&limit=4`
       );
       const data = await response.json();
-      console.log("maçlar 5555555555")
-      console.log(data)
       if (!data.matches) {
         setLoading(true);
         return;

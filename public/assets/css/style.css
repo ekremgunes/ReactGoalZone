@@ -3,24 +3,25 @@ body {
   line-height: 1.7;
   color: gray;
   font-weight: 300;
-  background-color: var(--PL1DARK) !important;
+  background-color: var(--PL1DARK);
   font-size: 16px;
 }
 
 :root {
   --PL1DARK: #220125;
-  --PL1: #400146;
-  --PL2: #ff015d;
-  --PL3: #04f0fe;
-  --PL4: #00ff87;
+  --PL1: #400146 ;
+  --PL2: #ff015d ;
+  --PL3: #04f0fe ;
+  --PL4: #00ff87 ;
 
-  --UCL1: #010166;
-  --UCL1DARK: #05113a;
-  --UCL2: #0a14d0;
-  --UCL3: #681b71;
+  --UCL1: #010166 ;
+  --UCL1DARK: #05113a ;
+  --UCL2n: #0a14d0 ;
+  --UCL3n: #9b27a8 ;
 
-  --UEL1: #ff6b02;
-  --UEL2: #1e0b0d;
+  --UEL1: #ff6b02 ;
+  --UEL2: #1e0b0d ;
+  --UEL3: #181011 ;
 
 
 }
@@ -1652,7 +1653,7 @@ h5,
 }
 
 #bg-img-overlay {
-  background-image: url('../images/PL_BG.png');
+  /* background-image: url('../images/PL_BG.png'); */
 }
 
 .playerCircle {
@@ -1724,7 +1725,6 @@ h5,
 
 .pl_score_bg {
   background-image: url('../images/pl_bg_2.png') !important;
-  background-color: var(--PL2);
 }
 
 .ucl_score_bg {
@@ -1732,7 +1732,8 @@ h5,
 }
 
 .uel_score_bg {
-  background-image: url('../images/pl_bg_2.png') !important;
+  background-image: url('../images/uel_score_bg.jpg') !important;
+  background-size: inherit;
 }
 
 

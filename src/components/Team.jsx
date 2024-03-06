@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loading from "../components/layout/Loading";
 import NextGames from "../components/NextGames";
+import { useCompetition } from "../context/CompetititonContext.jsx";
 
 const initialData = {
   id: 0,
@@ -28,7 +29,13 @@ const Team = (props) => {
   const [coach, setCoach] = useState({ position: "Manager" });
   const [loading, setLoading] = useState(true);
   const [apiUrl, setApiUrl] = useState("");
-  
+  const { contextValues } = useCompetition();
+  const [sliderBgClass, setSliderBgClass] = useState("");
+
+  useEffect(() => {
+    setSliderBgClass(contextValues.sliderBgClass);
+
+  }, [contextValues]);
 
   useEffect(() => {
     teamId == null || teamId == undefined
@@ -53,13 +60,13 @@ const Team = (props) => {
         id: data.coach.id,
         name: data.coach.name,
       }));
+      setSquad(data.squad);
       setLoading(false);
     } catch (error) {
       console.error("Veri getirme hatası:", error);
       setLoading(true);
     }
   };
-
 
   useEffect(() => {
     const fetchTeamData = async () => {
@@ -102,7 +109,8 @@ const Team = (props) => {
         setCoach(updatedCoach);
         setSquad([updatedCoach, ...updatedSquad]);
       } catch (error) {
-        console.log(error + " error dsfsdf sdf sd");
+        console.log(error + " error TEAM");
+        setLoading(true);
       }
     };
 
@@ -125,7 +133,7 @@ const Team = (props) => {
 
   return (
     <>
-      <div className="hero overlay " id="bg-img-overlay">
+      <div className={`hero overlay ${sliderBgClass}`} id="bg-img-overlay">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-2 ">
@@ -159,7 +167,10 @@ const Team = (props) => {
                 : team.runningCompetitions
                     .sort((a, b) => (b.id ? 1 : -1))
                     .map((competition) => (
-                      <div key={competition.id} className="playerCircle competition">
+                      <div
+                        key={competition.id}
+                        className="playerCircle competition"
+                      >
                         <img
                           src={
                             competition.emblem
@@ -219,8 +230,7 @@ const Team = (props) => {
               <h2 className="heading">Upcoming Match</h2>
             </div>
 
-            <NextGames/>
-            
+            <NextGames />
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import Loading from "../components/layout/Loading";
 
 const TeamPage = () => {
   const id = useSelector((state) => state.user.id);
+
   const { teamId } = useParams();
   const id_LS = localStorage.getItem("id");
   const shortName_LS = localStorage.getItem("shortName");
