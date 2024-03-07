@@ -2,7 +2,9 @@ import './App.css'
 import RootLayout from "./components/layout/RootLayout";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
-import StandingsPage from "./pages/StandingsPage";
+import ScorersPage from "./pages/ScorersPage";
+import PlayerPage from "./pages/PlayerPage";
+import LivePage from "./pages/LivePage";
 import TeamPage from "./pages/TeamPage";
 import StarterPage from "./pages/StarterPage";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
@@ -14,8 +16,10 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "standings", element: <StandingsPage /> },
-      { path: "team/:teamId?", element: <TeamPage /> }
+      { path: "team/:teamId?", element: <TeamPage /> },
+      { path: "scorers", element: <ScorersPage /> },
+      { path: "player/:playerId?", element: <PlayerPage /> },
+      { path: "live/:matchId?", element: <LivePage /> }
       // { path: "products/:productId", element: <ProductDetailPage /> },
     ],
   }, {

@@ -63,9 +63,14 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <a href="players.html" className="nav-link">
+                  <NavLink
+                      to="/scorers"
+                      className={({ isActive }) =>
+                        isActive ? "activelink nav-link" : "nav-link"
+                      }
+                    >
                       Scorers
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
                     <NavLink
@@ -78,9 +83,14 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <a href="contact.html" className="nav-link">
-                      Contact
-                    </a>
+                  <NavLink
+                      to="/live"
+                      className={({ isActive }) =>
+                        isActive ? "activelink nav-link" : "nav-link"
+                      }
+                    >
+                      Live Chat🔴
+                    </NavLink>
                   </li>
                 </ul>
               </nav>
