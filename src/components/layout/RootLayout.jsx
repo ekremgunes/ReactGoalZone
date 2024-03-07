@@ -8,15 +8,26 @@ import { useEffect, useState } from "react";
 import { useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CompetitionProvider,
   useCompetition,
 } from "../../context/CompetititonContext";
 
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
+
 const RootContent = () => {
   const competition = useSelector((state) => state.user.competition);
   const { contextFunctions } = useCompetition();
   const location = useLocation();
+  const id = useSelector((state) => state.user.id);
+  const id_LS = localStorage.getItem("id");
+  const shortName_LS = localStorage.getItem("shortName");
+  const competition_LS = localStorage.getItem("competition");
+  const { updateUserTeam } = userActions;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleWindowLoad = () => {
     if (competition && document.readyState == "complete") {
@@ -46,7 +57,7 @@ const RootContent = () => {
           contextFunctions.updateLogoSrc("ucl_logo.png");
           contextFunctions.updatescoreBgClass("ucl_score_bg");
           break;
-        case "UEL":
+        case "EL":
           document.documentElement.style.setProperty("--PL1", UEL2);
           document.documentElement.style.setProperty("--PL2", UEL1);
           document.documentElement.style.setProperty("--PL1DARK", UEL3);
@@ -72,6 +83,22 @@ const RootContent = () => {
       window.removeEventListener("load", handleWindowLoad);
     };
   }, [competition, location]);
+
+  useEffect(() => {
+    if (id_LS == null) {
+      navigate("/starter");
+    } else {
+      if (!id) {
+        dispatch(
+          updateUserTeam({
+            id: id_LS,
+            shortName: shortName_LS,
+            competition: competition_LS,
+          })
+        );
+      }
+    }
+  }, [id]);
 
   if (document.readyState == "loading") {
     return <Loading></Loading>;

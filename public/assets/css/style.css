@@ -9,19 +9,19 @@ body {
 
 :root {
   --PL1DARK: #220125;
-  --PL1: #400146 ;
-  --PL2: #ff015d ;
-  --PL3: #04f0fe ;
-  --PL4: #00ff87 ;
+  --PL1: #400146;
+  --PL2: #ff015d;
+  --PL3: #04f0fe;
+  --PL4: #00ff87;
 
-  --UCL1: #010166 ;
-  --UCL1DARK: #05113a ;
-  --UCL2n: #0a14d0 ;
-  --UCL3n: #9b27a8 ;
+  --UCL1: #010166;
+  --UCL1DARK: #05113a;
+  --UCL2n: #0a14d0;
+  --UCL3n: #9b27a8;
 
-  --UEL1: #ff6b02 ;
-  --UEL2: #1e0b0d ;
-  --UEL3: #181011 ;
+  --UEL1: #ff6b02;
+  --UEL2: #1e0b0d;
+  --UEL3: #181011;
 
 
 }
@@ -122,10 +122,12 @@ h5,
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
-.btn-primary{
+
+.btn-primary {
   background: transparent !important;
   border: 2px solid !important;
 }
+
 .btn.btn-primary:hover {
   border-color: #fff;
   color: #fff;
@@ -200,9 +202,11 @@ h5,
   border-color: var(--PL2);
   background: none;
 }
-.text-primary{
+
+.text-primary {
   color: var(--PL2) !important;
 }
+
 .form-control:hover,
 .form-control:active,
 .form-control:focus {
@@ -1705,16 +1709,20 @@ h5,
 .logoPage {
   height: 3.3rem;
 }
+
 .competition {
   width: 170px;
 }
-.competition p{
+
+.competition p {
   width: 170px;
 }
-.competition img{
+
+.competition img {
   width: 70%;
   height: auto;
 }
+
 .pl_bg {
   background-image: url('../images/PL_BG.png') !important;
 }
@@ -1782,9 +1790,11 @@ h5,
   20% {
     opacity: 0.15;
   }
+
   60% {
     opacity: 0.20;
   }
+
   100% {
     opacity: 0.25;
   }
@@ -1811,4 +1821,22 @@ h5,
   opacity: 0.12;
   animation: loadPlayers 1.3s infinite, fadeIn 1.3s infinite;
   transition: 0.7s;
+}
+
+#scorersTable {
+  width: 100%;
+  text-align: center;
+}
+
+#scorersTable td{
+  padding: 1px;
+}
+#scorersTable tr{
+  border: 1px solid rgba(248, 248, 255, 0.705);
+}
+
+#scorersTable th{
+  font-size: large;
+  padding: 1px;
+  border: 1px solid rgba(243, 244, 251, 0.622);
 }

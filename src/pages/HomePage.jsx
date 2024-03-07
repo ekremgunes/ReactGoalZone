@@ -1,9 +1,7 @@
 import Standings from "../components/Standings";
 import LastGame from "../components/LastGame";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "../store/user";
+import { useSelector } from "react-redux";
 import NextGame from "../components/NextGame";
 import Loading from "../components/layout/Loading";
 import { useCompetition } from "../context/CompetititonContext.jsx";
@@ -11,37 +9,15 @@ import { useCompetition } from "../context/CompetititonContext.jsx";
 const HomePage = () => {
   const id = useSelector((state) => state.user.id);
   const competition = useSelector((state) => state.user.competition);
-  const id_LS = localStorage.getItem("id");
-  const shortName_LS = localStorage.getItem("shortName");
-  const competition_LS = localStorage.getItem("competition");
-  const { updateUserTeam } = userActions;
   const { contextValues } = useCompetition();
   const [sliderBgClass, setSliderBgClass] = useState("");
   const [textSliderValue, setTextSliderValue] = useState("");
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
 
   useEffect(() => {
     setSliderBgClass(contextValues.sliderBgClass);
   }, [contextValues]);
 
-  useEffect(() => {
-    if (id_LS == null) {
-      navigate("/starter");
-    } else {
-      if (!id) {
-        dispatch(
-          updateUserTeam({
-            id: id_LS,
-            shortName: shortName_LS,
-            competition: competition_LS,
-          })
-        );
-      }
-    }
-  }, [id]);
 
   useEffect(() => {
     if (competition) {
