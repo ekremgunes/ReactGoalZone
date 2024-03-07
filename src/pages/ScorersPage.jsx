@@ -3,6 +3,28 @@ import { useSelector } from "react-redux";
 import Loading from "../components/layout/Loading";
 import { useCompetition } from "../context/CompetititonContext.jsx";
 
+const calculateAge = (birthdate) => {
+  // Verilen doğum tarihini ayrıştır
+  const birthDateArray = birthdate.split("-");
+  const birthYear = parseInt(birthDateArray[0], 10);
+  const birthMonth = parseInt(birthDateArray[1], 10);
+  const birthDay = parseInt(birthDateArray[2], 10);
+
+  // Bugünkü tarihi al
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // JavaScript'te aylar 0'dan başlar
+  const currentDay = currentDate.getDate();
+
+  // Doğum günü henüz gelmediyse yaş bir azaltılır
+  const age =
+    currentMonth > birthMonth ||
+    (currentMonth === birthMonth && currentDay >= birthDay)
+      ? currentYear - birthYear
+      : currentYear - birthYear - 1;
+  return age;
+};
+
 const ScorersPage = () => {
   const competition = useSelector((state) => state.user.competition);
   const { contextValues } = useCompetition();
@@ -21,13 +43,14 @@ const ScorersPage = () => {
       const response = await fetch(`/api/competitions/${competition}/scorers`);
       const data = await response.json();
 
-      console.log(data.scorers);
       if (!data.scorers) {
         setLoading(true);
         return;
       }
 
       setplayers(data.scorers);
+      fetchPlayerData();
+
       setLoading(false);
     } catch (error) {
       console.error("Veri getirme hatası:", error);
@@ -38,8 +61,6 @@ const ScorersPage = () => {
     try {
       const updatedPlayers = await Promise.all(
         players.map(async (player) => {
-          console.log(player.player.name);
-          console.log(player.team.name);
           const playerResponse = await fetch(
             `/sports/searchplayers.php?p=${encodeURIComponent(
               player.player.name
@@ -68,16 +89,15 @@ const ScorersPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchPlayers();
-  //   if (players.length > 0) {
-  //     fetchPlayerData();
-  //   }
-  // }, [competition]);
+  useEffect(() => {
+    fetchPlayers();
+  }, [competition, logo]);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
+
+  console.log(competition);
 
   return (
     <>
@@ -99,14 +119,13 @@ const ScorersPage = () => {
         </div>
       </div>
 
-      <div className="site-section bg-dark" >
+      <div className="site-section bg-dark">
         <div className="container">
           <div className="row mb-5">
-            <div className="col-12 ">
+            <div className="col-12 flexbaby">
               <table id="scorersTable">
                 <thead>
                   <tr>
-                    <th>#</th>
                     <th>Player</th>
                     <th>Age</th>
                     <th>Team</th>
@@ -116,45 +135,44 @@ const ScorersPage = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  {!players
+                    ? "Veri alınıyor"
+                    : players.map((row) => (
+                        <tr key={row.id}>
+                          <td>
+                            {players[0].goals == row.goals ? (
+                              <img
+                                src="/public/assets/images/king.png"
+                                className="kingImg"
+                              ></img>
+                            ) : (
+                              ""
+                            )}
 
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <img
-                    width={"65rem"}
-
-                      src="https://www.thesportsdb.com/images/media/player/cutout/n20bkp1693858058.png"
-                      alt="Player"
-                    />
-                    <p>Rasmus Hojlund</p>
-                  </td>
-                  <td>22 </td>
-                  <td>Manchester United FC</td>
-                  <td> 8</td>
-                  <td> 8</td>
-                  <td> 11</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <img
-                    width={"65rem"}
-                      src="https://www.thesportsdb.com/images/media/player/cutout/n20bkp1693858058.png"
-                      alt="Player"
-                    />
-                    <p>Rasmus Hojlund</p>
-                  </td>
-                  <td>22 </td>
-                  <td>Manchester United </td>
-                  <td> 8</td>
-                  <td> 8</td>
-                  <td> 11</td>
-                </tr>
-
+                            <img
+                              src={
+                                row.img
+                                  ? row.img
+                                  : "../../public/assets/images/player.png"
+                              }
+                              alt="Player"
+                            />
+                            <p>{row.player.name}</p>
+                          </td>
+                          <td>{calculateAge(row.player.dateOfBirth)} </td>
+                          <td>{row.team.shortName} </td>
+                          <td> {row.playedMatches}</td>
+                          <td> {row.assists ? row.assists : "0"}</td>
+                          <td>
+                            {" "}
+                            {`${row.goals} ${
+                              row.penalties ? `(${row.penalties})` : ""
+                            }`}
+                          </td>
+                        </tr>
+                      ))}
                 </tbody>
               </table>
-
-            
             </div>
           </div>
         </div>

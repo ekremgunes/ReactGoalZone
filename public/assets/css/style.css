@@ -1824,19 +1824,60 @@ h5,
 }
 
 #scorersTable {
-  width: 100%;
+  width: 90%;
   text-align: center;
+  color: rgba(245, 245, 245, 0.878);
 }
 
-#scorersTable td{
-  padding: 1px;
-}
-#scorersTable tr{
-  border: 1px solid rgba(248, 248, 255, 0.705);
-}
-
-#scorersTable th{
+#scorersTable tbody p {
+  display: inline;
   font-size: large;
+  margin-left: 4px;
+}
+
+#scorersTable tbody img:not(#scorersTable tbody .kingImg) {
+  display: inline;
+  width: 75px;
+  height: 75px;
   padding: 1px;
-  border: 1px solid rgba(243, 244, 251, 0.622);
+  margin: 6px 0px;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: 10px;
+}
+
+#scorersTable tbody .kingImg {
+  position: absolute;
+  width: 2rem !important;
+  background-color: transparent !important;
+  transition: .5s;
+}
+#scorersTable tbody .kingImg:hover{
+  transform: rotate(25deg);
+}
+#scorersTable td {
+  padding: 1px;
+}
+
+#scorersTable tr {
+  border: 1px solid rgba(255, 255, 255, 0.667);
+}
+
+#scorersTable tr :first-of-type {
+  text-align: left;
+}
+
+
+
+#scorersTable th {
+  background-color: var(--PL2);
+  color: rgba(255, 255, 255, 0.904);
+  font-size: large;
+  padding: 10px;
+}
+
+.flexbaby {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

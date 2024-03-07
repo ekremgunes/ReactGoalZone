@@ -9,11 +9,7 @@ import { useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {
-  CompetitionProvider,
-  useCompetition,
-} from "../../context/CompetititonContext";
-
+import {  CompetitionProvider, useCompetition,} from "../../context/CompetititonContext";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/user";
 
