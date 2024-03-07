@@ -38,7 +38,7 @@ const RootContent = () => {
       const UEL3 = rootStyles.getPropertyValue("--UEL3");
 
       switch (competition) {
-        case "UCL":
+        case "CL":
           document.documentElement.style.setProperty("--PL1", UCL1);
           document.documentElement.style.setProperty("--PL2", UCL3);
           document.documentElement.style.setProperty("--PL1DARK", UCL1DARK);

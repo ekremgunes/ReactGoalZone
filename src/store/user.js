@@ -17,7 +17,7 @@ const userSlice = createSlice({
       localStorage.setItem("shortName",action.payload.shortName);
 
       if (action.payload.competition.length < 0 ) {
-        competition = "PL"
+        state.competition = initialUserState.competition
       }
       state.competition = action.payload.competition;
       localStorage.setItem("competition",action.payload.competition);

@@ -122,10 +122,12 @@ h5,
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
-
+.btn-primary{
+  background: transparent !important;
+  border: 2px solid !important;
+}
 .btn.btn-primary:hover {
   border-color: #fff;
-  background: transparent;
   color: #fff;
 }
 
@@ -198,7 +200,9 @@ h5,
   border-color: var(--PL2);
   background: none;
 }
-
+.text-primary{
+  color: var(--PL2) !important;
+}
 .form-control:hover,
 .form-control:active,
 .form-control:focus {

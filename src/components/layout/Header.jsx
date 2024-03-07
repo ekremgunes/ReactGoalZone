@@ -10,7 +10,7 @@ const Header = () => {
   useEffect(() => {
     setLogo(contextValues.logo);
   }, [contextValues]);
-  
+
   return (
     <>
       <div className="site-mobile-menu site-navbar-target">
@@ -28,7 +28,7 @@ const Header = () => {
             <div className="site-logo">
               <a href="/">
                 <img
-                id="logoImg"
+                  id="logoImg"
                   className="logoPage"
                   src={`/public/assets/images/${logo}`}
                   alt="Logo"
@@ -41,7 +41,6 @@ const Header = () => {
                 role="navigation"
               >
                 <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                    
                   <li>
                     <NavLink
                       to="/"
@@ -52,8 +51,7 @@ const Header = () => {
                       Home
                     </NavLink>
                   </li>
-                  
-                  
+
                   <li>
                     <NavLink
                       to="/team"
@@ -66,13 +64,18 @@ const Header = () => {
                   </li>
                   <li>
                     <a href="players.html" className="nav-link">
-                      Players
+                      Scorers
                     </a>
                   </li>
                   <li>
-                    <a href="blog.html" className="nav-link">
-                      Blog
-                    </a>
+                    <NavLink
+                      to="/starter"
+                      className={({ isActive }) =>
+                        isActive ? "activelink nav-link" : "nav-link"
+                      }
+                    >
+                      Starter
+                    </NavLink>
                   </li>
                   <li>
                     <a href="contact.html" className="nav-link">
