@@ -48,30 +48,27 @@ const ScorersPage = () => {
         return;
       }
 
-      setplayers(data.scorers);
-      fetchPlayerData();
-
+      fetchPlayerData(data.scorers);
       setLoading(false);
     } catch (error) {
       console.error("Veri getirme hatası:", error);
       setLoading(true);
     }
   };
-  const fetchPlayerData = async () => {
+  const fetchPlayerData = async (scorers) => {
     try {
       const updatedPlayers = await Promise.all(
-        players.map(async (player) => {
+        scorers.map(async (player) => {
           const playerResponse = await fetch(
             `/sports/searchplayers.php?p=${encodeURIComponent(
               player.player.name
             )}`
           );
           const playerData = await playerResponse.json();
-
-          if (!playerData.player[0]) {
+          if (playerData.player == null) {
             return player;
           }
-
+          
           return {
             ...player,
             img: playerData ? playerData.player[0].strCutout : "",
@@ -79,26 +76,22 @@ const ScorersPage = () => {
         })
       );
       if (updatedPlayers.length > 0) {
-        console.log("girdi");
-        console.log(updatedPlayers);
         setplayers(updatedPlayers);
       }
     } catch (error) {
       console.log(error + " error TEAM");
-      setLoading(true);
+      // setLoading(true);
     }
   };
 
   useEffect(() => {
     fetchPlayers();
-  }, [competition, logo]);
+  }, [competition]);
 
   if (loading) {
     return <Loading />;
   }
-
-  console.log(competition);
-
+ console.log(players[0])
   return (
     <>
       <div className={`hero overlay ${sliderBgClass}`} id="bg-img-overlay">

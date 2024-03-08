@@ -26,7 +26,7 @@ const HomePage = () => {
         case "CL":
           setTextSliderValue("UCL Night");
           break;
-        case "UEL":
+        case "EL":
           setTextSliderValue("UEL Night");
 
           break;
@@ -68,10 +68,10 @@ const HomePage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              {/* <NextGame /> */}
+              <NextGame />
             </div>
             <div className="col-lg-6">
-              {/* <Standings id={id} /> */}
+              <Standings id={id} />
             </div>
           </div>
         </div>

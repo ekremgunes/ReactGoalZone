@@ -47,7 +47,7 @@ const Team = (props) => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      if (!data) {
+      if (!data && data.name) {
         setLoading(true);
         return;
       }

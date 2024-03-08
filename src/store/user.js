@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialUserState = {
   id:"" ,//team id,
   shortName:"",
-  competition:"PL",
+  competition:"",
 };
 
 const userSlice = createSlice({
