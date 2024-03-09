@@ -53,9 +53,32 @@
 }
 
 .chat-list {
-    height: 47vh;
+    height: 48vh;
     overflow: scroll;
+    overflow-x: hidden !important;
+    margin-bottom: 1px;
 }
+
+
+.chat-list::-webkit-scrollbar {
+    width: 2px;
+}
+.chat-list::-webkit-scrollbar:hover{
+    width: 5px;
+
+}
+.chat-list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+    background-color: rgba(147, 146, 146, 0.919);
+    outline: 1px solid rgba(66, 70, 73, 0.923);
+}
+
+
+
+
 
 .chat-list li {
     margin: 4px;
@@ -180,7 +203,7 @@
     padding: 5px;
     text-indent: 3px;
     outline: none;
-    border: 1px solid  #ffffff4a;
+    border: 1px solid #ffffff4a;
     border-radius: 8px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
@@ -191,14 +214,16 @@
     caret-color: var(--PL2);
 
 }
+
 .sendMessageArea input:focus,
-.sendMessageArea input:active{
+.sendMessageArea input:active {
     border: 1px solid var(--PL2);
 }
+
 .sendMessageArea button {
     cursor: pointer;
     padding: 6.6px;
-    color: white;
+    color: rgba(255, 255, 255, 0.922);
     background-color: var(--PL2);
     width: 34.4px;
     position: absolute;
@@ -206,6 +231,12 @@
     outline: none;
     border: none;
     right: 5px;
-    bottom: 8px;
+    bottom: auto;
     font-size: smaller;
+    transition: .2s;
+}
+
+.sendMessageArea button:hover {
+    color: white;
+    box-shadow: 0px 1px 6px var(--PL2);
 }

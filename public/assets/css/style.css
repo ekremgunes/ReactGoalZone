@@ -7,6 +7,7 @@ body {
   font-size: 16px;
 }
 
+
 :root {
   --PL1DARK: #220125;
   --PL1: #400146;
@@ -1880,4 +1881,33 @@ h5,
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@keyframes redDotAnimation {
+  0%{
+    transform: scale(0.92);
+    opacity: 0.6;
+  }
+  50%{
+    transform: scale(1);
+    opacity: 1;
+  }
+  100%{
+    transform: scale(0.92);
+    opacity: 0.6;
+  }
+}
+.redDotScore{
+  font-size: smaller;
+  transition: .4s;
+  display: inline-block;
+  animation-name: redDotAnimation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(1, 0.6, 0.5, 1);
+}
+
+#activeUserImg{
+  border-radius: 50%;
+  width: 28px;
 }

@@ -151,22 +151,20 @@ const LastGame = () => {
                 ? lastGame.status == "FINISHED"
                   ? "FULL TIME"
                   : lastGame.status
-                : `LIVE🔴'`}
+                : <><span>LIVE</span><span className='redDotScore'>🔴</span></>}
             </span>
             <span className="score" style={{ top: "14.5%", fontSize: "7.5px" }}>
               {lastGame.awayScoreFH != null && lastGame.homeScoreFH != null
                 ? `FH(${lastGame.homeScoreFH} - ${lastGame.awayScoreFH})`
                 : ""}
-              
             </span>
             <span className="score" style={{ top: "92%", fontSize: "11px" }}>
-            {tour == 2
+              {tour == 2
                 ? `Agg(${lastGame.homeScore + totalHomeScore} - ${
                     lastGame.awayScore + totalAwayScore
                   })`
                 : ""}
             </span>
-
 
             <div className="team-1 w-50">
               <div className="team-details w-100 text-center">

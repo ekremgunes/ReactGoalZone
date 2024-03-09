@@ -63,16 +63,16 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* <LastGame />  */}
+       <LastGame />  
 
       <div className="site-section bg-dark">
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              {/* <NextGame /> */}
+               {/* <NextGame />  */}
             </div>
             <div className="col-lg-6">
-              {/* <Standings id={id} /> */}
+               {/* <Standings id={id} />  */}
             </div>
           </div>
         </div>

@@ -4,7 +4,6 @@ import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import ScorersPage from "./pages/ScorersPage";
 import PlayerPage from "./pages/PlayerPage";
-import LivePage from "./pages/LivePage";
 import TeamPage from "./pages/TeamPage";
 import StarterPage from "./pages/StarterPage";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
@@ -19,7 +18,6 @@ const router = createBrowserRouter([
       { path: "team/:teamId?", element: <TeamPage /> },
       { path: "scorers", element: <ScorersPage /> },
       { path: "player/:playerId?", element: <PlayerPage /> },
-      { path: "live/:matchId?", element: <LivePage /> }
       // { path: "products/:productId", element: <ProductDetailPage /> },
     ],
   }, {

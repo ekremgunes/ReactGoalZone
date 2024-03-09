@@ -2,10 +2,26 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCompetition } from "../../context/CompetititonContext";
+import { db, auth } from "../../helpers/firebase";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Header = () => {
   const { contextValues } = useCompetition();
   const [logo, setLogo] = useState("");
+  const [user] = useAuthState(auth);
+
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
+  const logOut = () => {
+    if (!confirm("You will log out")) {
+      return;
+    }
+    signOut(auth);
+  };
 
   useEffect(() => {
     setLogo(contextValues.logo);
@@ -63,7 +79,7 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li>
-                  <NavLink
+                    <NavLink
                       to="/scorers"
                       className={({ isActive }) =>
                         isActive ? "activelink nav-link" : "nav-link"
@@ -82,16 +98,23 @@ const Header = () => {
                       Starter
                     </NavLink>
                   </li>
-                  <li>
-                  <NavLink
-                      to="/live"
-                      className={({ isActive }) =>
-                        isActive ? "activelink nav-link" : "nav-link"
-                      }
-                    >
-                      Live Chat🔴
-                    </NavLink>
-                  </li>
+                  
+                  {user ? (
+                    <li>
+                      <a onClick={() => logOut()} href="javascript:void(0);">
+                        <img id="activeUserImg" src={user.photoURL}></img>
+                      </a>
+                    </li>
+                  ) : (
+                    <li>
+                      <a
+                        onClick={() => googleSignIn()}
+                        href="javascript:void(0);"
+                      >
+                        LOGIN <i className="fa-solid fa-right-to-bracket"></i>
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </nav>
 
