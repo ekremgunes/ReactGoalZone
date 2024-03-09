@@ -91,7 +91,6 @@ const ScorersPage = () => {
   if (loading) {
     return <Loading />;
   }
- console.log(players[0])
   return (
     <>
       <div className={`hero overlay ${sliderBgClass}`} id="bg-img-overlay">
@@ -129,7 +128,7 @@ const ScorersPage = () => {
                 </thead>
                 <tbody>
                   {!players
-                    ? "Veri alınıyor"
+                    ? <tr className="text-center w-100">Loading . .</tr>
                     : players.map((row) => (
                         <tr key={row.id}>
                           <td>

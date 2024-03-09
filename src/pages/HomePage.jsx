@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import NextGame from "../components/NextGame";
 import Loading from "../components/layout/Loading";
 import { useCompetition } from "../context/CompetititonContext.jsx";
+import LiveChat from "../components/LiveChat.jsx";
 
 const HomePage = () => {
   const id = useSelector((state) => state.user.id);
@@ -62,16 +63,16 @@ const HomePage = () => {
         </div>
       </div>
 
-      <LastGame />
+      {/* <LastGame />  */}
 
       <div className="site-section bg-dark">
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              <NextGame />
+              {/* <NextGame /> */}
             </div>
             <div className="col-lg-6">
-              <Standings id={id} />
+              {/* <Standings id={id} /> */}
             </div>
           </div>
         </div>
@@ -231,6 +232,9 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      
+      <LiveChat />
+
     </>
   );
 };
