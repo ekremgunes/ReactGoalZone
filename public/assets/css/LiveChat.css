@@ -1,27 +1,36 @@
 #liveChat {
     visibility: hidden;
-    z-index: 10;
+    z-index: 50;
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 5px;
+    right: 5px;
     width: 375px;
     height: 60vh;
     background-color: rgb(21, 21, 33);
     border-radius: 12px;
 }
+#deleteMSg i{
+ margin-right: 7px;
+ color: rgba(206, 206, 206, 0.921);
+ cursor: pointer;
+}
+#deleteMSg i:hover{
+    color: rgba(222, 178, 178, 0.971);
+}
 
 #chatBtn {
     position: fixed;
-    bottom: 15px;
-    right: 15px;
-    width: 60px;
-    height: 60px;
+    bottom: 10px;
+    right: 6px;
 }
 
 #chatBtn i {
-    font-size: 45px;
+    font-size: 32px;
     color: rgba(255, 255, 255, 0.85);
     transition: .3s;
+    background-color: #9b27a8;
+  padding: .5rem;
+  border-radius: 25px;
 }
 
 #chatBtn i:hover {
@@ -138,6 +147,7 @@
     letter-spacing: 1px;
     margin-top: 1px;
     margin-left: 11px;
+    margin-right: 11px;
     margin-bottom: 0;
 }
 
@@ -233,7 +243,7 @@
     right: 5px;
     bottom: auto;
     font-size: smaller;
-    transition: .2s;
+    transition: box-shadow  .2s;
 }
 
 .sendMessageArea button:hover {

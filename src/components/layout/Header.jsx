@@ -13,14 +13,25 @@ const Header = () => {
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
-  };
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log("Giriş başarılı:", result.user);
+    })
+    .catch((error) => {
+      console.error("Giriş başarısız:", error.message);
+    });  };
 
   const logOut = () => {
     if (!confirm("You will log out")) {
       return;
     }
-    signOut(auth);
+    signOut(auth)
+    .then(() => {
+      console.log("Oturum kapatma başarılı");
+    })
+    .catch((error) => {
+      console.error("Oturum kapatma başarısız:", error.message);
+    });
   };
 
   useEffect(() => {

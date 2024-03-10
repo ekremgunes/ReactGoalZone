@@ -8,20 +8,19 @@ import {
   limit,
   query,
   addDoc,
-  // deleteDoc,
-  // doc,
+  deleteDoc,
+  doc,
   serverTimestamp,
 } from "firebase/firestore";
 import { db, auth } from "../helpers/firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import "../../public/assets/css/LiveChat.css";
 
-
 const LiveChat = () => {
   const [user] = useAuthState(auth);
 
   const messageRef = collection(db, "messages");
-  const queryRef = query(messageRef, orderBy("createdAt", "asc"), limit(20));
+  const queryRef = query(messageRef, orderBy("createdAt", "asc"));
   const [messages] = useCollection(queryRef, { idField: "id" });
 
   const [inputValue, setinputValue] = useState("");
@@ -43,7 +42,7 @@ const LiveChat = () => {
       createdAt: serverTimestamp(),
       uid: user.uid,
       photoUrl: user.photoURL,
-      userName: user.displayName      
+      userName: user.displayName,
     };
     await addDoc(messageRef, payload);
     setinputValue("");
@@ -51,16 +50,30 @@ const LiveChat = () => {
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log("Giriş başarılı:", result.user);
+      })
+      .catch((error) => {
+        console.error("Giriş başarısız:", error.message);
+      });
   };
 
   const logOut = () => {
-    signOut(auth);
+    if (!confirm("You will log out")) {
+      return;
+    }
+    signOut(auth)
+      .then(() => {
+        console.log("Oturum kapatma başarılı");
+      })
+      .catch((error) => {
+        console.error("Oturum kapatma başarısız:", error.message);
+      });
   };
 
   useEffect(() => {
     scrollTo.current.scrollIntoView({ behavior: "smooth" });
-    console.log(messages)
   }, [messages]);
 
   const openChatModal = () => {
@@ -69,7 +82,6 @@ const LiveChat = () => {
         return;
       }
       googleSignIn();
-      return;
     }
     setmodalBtnVisibility(false);
     setmodalVisibility(true);
@@ -98,7 +110,12 @@ const LiveChat = () => {
             <ul className="chat-list">
               {messages
                 ? messages.docs.map((msg) => (
-                    <ChatMessage key={msg.id} message={msg.data()} />
+                    <ChatMessage
+                      key={msg.id}
+                      message={msg.data()}
+                      id={msg.id}
+                      activeUserId={user.uid}
+                    />
                   ))
                 : "Yeni mesaj bulunmuyor"}
               <div ref={scrollTo}></div>
@@ -133,11 +150,33 @@ const LiveChat = () => {
 };
 
 export default LiveChat;
+
+const deleteMessage = async (id, uid, activeUserId) => {
+
+  if (activeUserId !== uid) {
+    return;
+  }
+  if (!id) {
+    return;
+  }
+  const messageDocRef = doc(db, "messages", id);
+  console.log(messageDocRef);
+  await deleteDoc(messageDocRef)
+    .then(() => {
+      console.log("silindi");
+    })
+    .catch(() => {
+      console.log("silinMEdi");
+    });
+};
+
 function ChatMessage(props) {
   if (!auth.currentUser) {
     return;
   }
   const { text, uid, photoUrl, createdAt, userName } = props.message;
+  const id = props.id;
+  const activeUserId = props.activeUserId;
   const className = uid == auth.currentUser.uid ? "out" : "in";
 
   return (
@@ -150,7 +189,20 @@ function ChatMessage(props) {
           <h5>{userName}</h5>
           <p>{text}</p>
         </div>
-        <p className="dateTime">{formatMessageDate(createdAt)}</p>
+        <p className="dateTime">
+          {uid == activeUserId && id ? (
+            <span
+              id="deleteMSg"
+              onClick={() => deleteMessage(id, uid, activeUserId)}
+            >
+              <i className="fa-solid fa-trash"></i>
+            </span>
+          ) : (
+            ""
+          )}
+
+          {formatMessageDate(createdAt)}
+        </p>
       </div>
     </li>
   );
