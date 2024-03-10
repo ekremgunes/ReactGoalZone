@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import {  CompetitionProvider, useCompetition,} from "../../context/CompetititonContext";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/user";
+import LiveChat from "../LiveChat";
 
 const RootContent = () => {
   const competition = useSelector((state) => state.user.competition);
@@ -105,6 +106,8 @@ const RootContent = () => {
       <Header />
       <Outlet />
       <Footer />
+      <LiveChat />
+
     </Fragment>
   );
 };

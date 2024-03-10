@@ -34,7 +34,7 @@ const Standings = (props) => {
         </thead>
         <tbody>
           {!standingsTable
-            ? "Veri alınıyor"
+            ? <tr>Loading . .</tr>
             : standingsTable.map((row) => (
                 <tr
                   key={row.team.id}

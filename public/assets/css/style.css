@@ -1661,9 +1661,6 @@ h5,
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-#bg-img-overlay {
-  /* background-image: url('../images/PL_BG.png'); */
-}
 
 .playerCircle {
   display: inline-block;

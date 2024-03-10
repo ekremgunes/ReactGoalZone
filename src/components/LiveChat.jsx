@@ -8,6 +8,8 @@ import {
   limit,
   query,
   addDoc,
+  // deleteDoc,
+  // doc,
   serverTimestamp,
 } from "firebase/firestore";
 import { db, auth } from "../helpers/firebase";
@@ -41,7 +43,7 @@ const LiveChat = () => {
       createdAt: serverTimestamp(),
       uid: user.uid,
       photoUrl: user.photoURL,
-      userName: user.displayName,
+      userName: user.displayName      
     };
     await addDoc(messageRef, payload);
     setinputValue("");
@@ -58,6 +60,7 @@ const LiveChat = () => {
 
   useEffect(() => {
     scrollTo.current.scrollIntoView({ behavior: "smooth" });
+    console.log(messages)
   }, [messages]);
 
   const openChatModal = () => {
