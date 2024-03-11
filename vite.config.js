@@ -12,7 +12,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
         headers: {
-          'X-Auth-Token': 'f586da31f6a54350bdbc94d12bb4f99e',
+          'X-Auth-Token': "CHANGE HERE WİTH REAL ONE",
         },
       },
       '/sports': {
@@ -20,7 +20,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/sports/, ''),
         headers: {
-          // Burada gerekli başlıkları ekleyin
+          // 
         },
       },
     },
