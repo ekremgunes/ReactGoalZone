@@ -114,7 +114,7 @@ const LiveChat = () => {
                       key={msg.id}
                       message={msg.data()}
                       id={msg.id}
-                      activeUserId={user.uid}
+                      activeUserId={user ? user.uid : 0}
                     />
                   ))
                 : "Yeni mesaj bulunmuyor"}

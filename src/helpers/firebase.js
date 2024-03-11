@@ -7,15 +7,7 @@ import { getFirestore } from "firebase/firestore";
 
 // const firebaseConfig = {
 // }
-const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
-    measurementId: ""
-  };
+
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app)
