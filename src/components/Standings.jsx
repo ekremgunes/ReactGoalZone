@@ -1,8 +1,9 @@
 import React from "react";
 import { useCallback, useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const Standings = (props) => {
   const [standingsTable, setStandings] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +18,11 @@ const Standings = (props) => {
 
     fetchData();
   }, []);
+
+  const navigateToTeam = (id) => {
+    if (!id) return;
+    return navigate("/team/" + id);
+  };
 
   return (
     <div className="widget-next-match" id="standingsTable">
@@ -33,24 +39,27 @@ const Standings = (props) => {
           </tr>
         </thead>
         <tbody>
-          {!standingsTable
-            ? <tr>Loading . .</tr>
-            : standingsTable.map((row) => (
-                <tr
-                  key={row.team.id}
-                  className={row.team.id == props.id ? "selectedTeam" : ""}
-                >
-                  <td>{row.position}</td>
-                  <td>
-                    <strong className="text-white">{row.team.shortName}</strong>
-                  </td>
-                  <td>{row.won}</td>
-                  <td>{row.draw}</td>
-                  <td>{row.lost}</td>
-                  <td>{row.goalDifference}</td>
-                  <td>{row.points}</td>
-                </tr>
-              ))}
+          {!standingsTable ? (
+            <tr>Loading . .</tr>
+          ) : (
+            standingsTable.map((row) => (
+              <tr
+                onClick={() => navigateToTeam(row.team.id)}
+                key={row.team.id}
+                className={`cursor-pointer ${row.team.id == props.id ? "selectedTeam" : ""}`}
+              >
+                <td>{row.position}</td>
+                <td>
+                  <strong className="text-white">{row.team.shortName}</strong>
+                </td>
+                <td>{row.won}</td>
+                <td>{row.draw}</td>
+                <td>{row.lost}</td>
+                <td>{row.goalDifference}</td>
+                <td>{row.points}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

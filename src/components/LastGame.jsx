@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import React from "react";
 import { userActions } from "../store/user";
-
+import { useNavigate } from "react-router-dom";
 import "../helpers/helpers.js";
 import { useCompetition } from "../context/CompetititonContext.jsx";
 
@@ -17,6 +16,8 @@ const initialGameData = {
   awayScore: 0,
   awayScoreFH: 0,
   duration: "",
+  homeTeamId:0,
+  awayTeamId:0
 };
 
 const LastGame = () => {
@@ -33,6 +34,7 @@ const LastGame = () => {
   const [tour, setTour] = useState(0);
   const { updateUserTeam } = userActions;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setScoreBgClass(contextValues.scoreBgClass);
@@ -102,6 +104,8 @@ const LastGame = () => {
           awayScore: data.matches[0].score.fullTime.away,
           awayScoreFH: data.matches[0].score.halfTime.away,
           duration: data.matches[0].score.duration,
+          homeTeamId:data.matches[0].homeTeam.id,
+          awayTeamId:data.matches[0].awayTeam.id
         });
         setScoreContent(
           `${data.matches[0].score.fullTime.home} - ${data.matches[0].score.fullTime.away}`
@@ -128,6 +132,10 @@ const LastGame = () => {
     }
   }, [id, lastGame.status]);
 
+  const navigateToTeam = (id) => {
+    if (!id) return;
+    return navigate("/team/" + id);
+  };
   if (loading) {
     return <></>;
   }
@@ -168,10 +176,10 @@ const LastGame = () => {
 
             <div className="team-1 w-50">
               <div className="team-details w-100 text-center">
-                <img
+                <img onClick={() => navigateToTeam(lastGame.homeTeamId)}
                   src={lastGame.homeTeamImage}
                   alt="Image"
-                  className="img-fluid"
+                  className="img-fluid cursor-pointer"
                 />
                 <h3>
                   {lastGame.homeTeam} <span></span>
@@ -180,10 +188,10 @@ const LastGame = () => {
             </div>
             <div className="team-2 w-50">
               <div className="team-details w-100 text-center">
-                <img
+                <img onClick={() => navigateToTeam(lastGame.awayTeamId)}
                   src={lastGame.awayTeamImage}
                   alt="Image"
-                  className="img-fluid"
+                  className="img-fluid cursor-pointer"
                 />
                 <h3>
                   {lastGame.awayTeam} <span></span>

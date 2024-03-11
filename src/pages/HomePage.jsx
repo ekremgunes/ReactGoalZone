@@ -37,6 +37,8 @@ const HomePage = () => {
     }
   }, [competition, id]);
 
+  
+
   if (!id) {
     return <Loading />;
   }

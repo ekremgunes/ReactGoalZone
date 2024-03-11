@@ -1,9 +1,7 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loading from "../components/layout/Loading";
 import { useCompetition } from "../context/CompetititonContext.jsx";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const PlayerPage = () => {
