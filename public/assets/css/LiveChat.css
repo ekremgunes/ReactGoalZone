@@ -2,8 +2,8 @@
     visibility: hidden;
     z-index: 50;
     position: fixed;
-    bottom: 5px;
-    right: 5px;
+    bottom: 8px;
+    right: 10px;
     width: 375px;
     height: 60vh;
     background-color: rgb(21, 21, 33);
