@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loading from "../components/layout/Loading";
 import { useCompetition } from "../context/CompetititonContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const calculateAge = (birthdate) => {
   // Verilen doğum tarihini ayrıştır
@@ -32,6 +33,7 @@ const ScorersPage = () => {
   const [loading, setLoading] = useState(true);
   const [logo, setLogo] = useState("");
   const [players, setplayers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSliderBgClass(contextValues.sliderBgClass);
@@ -68,7 +70,7 @@ const ScorersPage = () => {
           if (playerData.player == null) {
             return player;
           }
-          
+
           return {
             ...player,
             img: playerData ? playerData.player[0].strCutout : "",
@@ -87,6 +89,11 @@ const ScorersPage = () => {
   useEffect(() => {
     fetchPlayers();
   }, [competition]);
+
+  const navigateToPlayer = (name) => {
+    if (!name) return;
+    return navigate("/player/" + name);
+  };
 
   if (loading) {
     return <Loading />;
@@ -127,42 +134,47 @@ const ScorersPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {!players
-                    ? <tr className="text-center w-100">Loading . .</tr>
-                    : players.map((row) => (
-                        <tr key={row.id}>
-                          <td>
-                            {players[0].goals == row.goals ? (
-                              <img
-                                src="/public/assets/images/king.png"
-                                className="kingImg"
-                              ></img>
-                            ) : (
-                              ""
-                            )}
-
+                  {!players ? (
+                    <tr className="text-center w-100">Loading . .</tr>
+                  ) : (
+                    players.map((row) => (
+                      <tr key={row.id}>
+                        <td
+                          className="cursor-pointer"
+                          onClick={() => navigateToPlayer(row.player.name)}
+                        >
+                          {players[0].goals == row.goals ? (
                             <img
-                              src={
-                                row.img
-                                  ? row.img
-                                  : "../../public/assets/images/player.png"
-                              }
-                              alt="Player"
-                            />
-                            <p>{row.player.name}</p>
-                          </td>
-                          <td>{calculateAge(row.player.dateOfBirth)} </td>
-                          <td>{row.team.shortName} </td>
-                          <td> {row.playedMatches}</td>
-                          <td> {row.assists ? row.assists : "0"}</td>
-                          <td>
-                            {" "}
-                            {`${row.goals} ${
-                              row.penalties ? `(${row.penalties})` : ""
-                            }`}
-                          </td>
-                        </tr>
-                      ))}
+                              src="/public/assets/images/king.png"
+                              className="kingImg"
+                            ></img>
+                          ) : (
+                            ""
+                          )}
+
+                          <img
+                            src={
+                              row.img
+                                ? row.img
+                                : "../../public/assets/images/player.png"
+                            }
+                            alt="Player"
+                          />
+                          <p>{row.player.name}</p>
+                        </td>
+                        <td>{calculateAge(row.player.dateOfBirth)} </td>
+                        <td>{row.team.shortName} </td>
+                        <td> {row.playedMatches}</td>
+                        <td> {row.assists ? row.assists : "0"}</td>
+                        <td>
+                          {" "}
+                          {`${row.goals} ${
+                            row.penalties ? `(${row.penalties})` : ""
+                          }`}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>

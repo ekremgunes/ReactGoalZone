@@ -28,7 +28,7 @@
     font-size: 32px;
     color: rgba(255, 255, 255, 0.85);
     transition: .3s;
-    background-color: #9b27a8;
+    background-color: var(--PL2);
   padding: .5rem;
   border-radius: 25px;
 }

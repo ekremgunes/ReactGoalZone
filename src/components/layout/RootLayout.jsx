@@ -66,6 +66,9 @@ const RootContent = () => {
           contextFunctions.updatesliderClass("pl_bg");
           contextFunctions.updateLogoSrc("pl_logo.png");
           contextFunctions.updatescoreBgClass("pl_score_bg");
+          document.documentElement.style.setProperty("--PL1", PL1);
+          document.documentElement.style.setProperty("--PL2", PL2);
+          document.documentElement.style.setProperty("--PL1DARK", PL1DARK);
           break;
       }
     }

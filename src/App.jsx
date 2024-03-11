@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "team/:teamId?", element: <TeamPage /> },
       { path: "scorers", element: <ScorersPage /> },
-      { path: "player/:playerId?", element: <PlayerPage /> },
+      { path: "player/:playerName?", element: <PlayerPage /> },
       // { path: "products/:productId", element: <ProductDetailPage /> },
     ],
   }, {

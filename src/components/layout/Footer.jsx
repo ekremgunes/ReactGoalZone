@@ -59,11 +59,11 @@ const Footer = () => {
 
         <div className="row text-center">
           <div className="col-md-12">
-            <div className=" pt-5">
+            <div className=" pt-3">
               <p>
                 <script>
                   document.write(new Date().getFullYear());
-                </script> All rights reserved . Licensed under MIT 
+                </script>gunesekrem.com All rights reserved . Licensed under MIT  
               </p>
             </div>
           </div>
