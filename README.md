@@ -48,9 +48,9 @@ Here are the key features:
 
 ## ❓ Project View 
 
-![](/goalzoneall.png)
 
-video : [https://www.linkedin.com/feed/update/urn:li:activity:7176941791378587648/]()
+![](/goalzoneLowgif.gif)
+![](/goalzoneall.png)
 ## 🔧 Usage
 
 - First one is too important (star the project😁)
