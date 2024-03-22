@@ -46,12 +46,11 @@ Here are the key features:
 
 - . .
 
-## ❓ Project View (pls wait⏳)
+## ❓ Project View 
 
-![](/gunesekrem-front1.gif)
+![](/goalzoneall.png)
 
-![](/gunesekrem-back1.gif)
-
+video : [https://www.linkedin.com/feed/update/urn:li:activity:7176941791378587648/]()
 ## 🔧 Usage
 
 - First one is too important (star the project😁)

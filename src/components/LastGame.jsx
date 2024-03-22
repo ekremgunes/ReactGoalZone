@@ -82,9 +82,12 @@ const LastGame = () => {
             `/api/matches/${data.matches[0].id}/head2head?limit=2`
           );
           const dataH2H = await responseH2H.json();
+          if (dataH2H.matches[1]) {
           setTour(data.matches[0].matchday);
           setTotalHomeScore(dataH2H.matches[1].score.fullTime.away);
-          setTotalAwayScore(dataH2H.matches[1].score.fullTime.home);
+          setTotalAwayScore(dataH2H.matches[1].score.fullTime.home);            
+          }
+
         }
 
         var newuser = {

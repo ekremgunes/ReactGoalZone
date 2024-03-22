@@ -52,7 +52,7 @@ const LiveChat = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log("Giriş başarılı:", result.user);
+        console.log("Giriş başarılı:");
       })
       .catch((error) => {
         console.error("Giriş başarısız:", error.message);
@@ -78,7 +78,7 @@ const LiveChat = () => {
 
   const openChatModal = () => {
     if (!user) {
-      if (!confirm("Oturum açma ekranına yönlendirileceksiniz")) {
+      if (!confirm("You are directed to the login screen")) {
         return;
       }
       googleSignIn();
@@ -160,7 +160,6 @@ const deleteMessage = async (id, uid, activeUserId) => {
     return;
   }
   const messageDocRef = doc(db, "messages", id);
-  console.log(messageDocRef);
   await deleteDoc(messageDocRef)
     .then(() => {
       console.log("silindi");

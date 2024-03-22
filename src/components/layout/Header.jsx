@@ -15,10 +15,10 @@ const Header = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
     .then((result) => {
-      console.log("Giriş başarılı:", result.user);
+      console.log("Giriş başarılı:");
     })
     .catch((error) => {
-      console.error("Giriş başarısız:", error.message);
+      console.error("Giriş başarısı");
     });  };
 
   const logOut = () => {
@@ -112,15 +112,15 @@ const Header = () => {
                   
                   {user ? (
                     <li>
-                      <a onClick={() => logOut()} href="javascript:void(0);">
-                        <img id="activeUserImg" src={user.photoURL}></img>
+                      <a onClick={() => logOut()} href="#">
+                        <img id="activeUserImg" src={user.photoURL}/>
                       </a>
                     </li>
                   ) : (
                     <li>
                       <a
                         onClick={() => googleSignIn()}
-                        href="javascript:void(0);"
+                        href="#"
                       >
                         LOGIN <i className="fa-solid fa-right-to-bracket"></i>
                       </a>

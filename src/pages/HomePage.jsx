@@ -49,11 +49,11 @@ const HomePage = () => {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-4 ml-auto">
-              <h1 className="text-white">{textSliderValue}</h1>
+              <h2 className="text-white">{textSliderValue}</h2>
               <p>You can see live match results, scorers, upcoming matches and standings on our website. Discuss with people about the matches via our live chat!</p>
               <p>
                 <a href="#" className="btn btn-primary py-3 px-4 mr-3">
-                  Book Ticket
+                  Scorers
                 </a>
                 <a href="#" className="more light">
                   Learn More
